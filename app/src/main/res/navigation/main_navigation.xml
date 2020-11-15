@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/fragment_a">
+
+    <fragment
+        android:id="@+id/fragment_a"
+        android:name="shevtsov.daniil.incrementalreader.fragmenta.FragmentA"
+        tools:layout="@layout/fragment_a">
+        <action
+            android:id="@+id/navigate_to_b_direction"
+            app:destination="@id/fragment_b" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_b"
+        android:name="shevtsov.daniil.incrementalreader.fragmentb.FragmentB"
+        tools:layout="@layout/fragment_b" />
+
+</navigation>
