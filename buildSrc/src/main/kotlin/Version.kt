@@ -1,6 +1,7 @@
 object Version {
     const val APP_COMPAT = "1.1.0"
     const val CORE_KTX = "1.3.0"
+    const val FRAGMENT = "1.2.5"
     const val CONSTRAINT = "1.1.3"
 
     const val LIFECYCLE = "2.2.0"

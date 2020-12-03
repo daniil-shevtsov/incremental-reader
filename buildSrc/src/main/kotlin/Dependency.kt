@@ -1,6 +1,7 @@
 object Dependency {
     const val APP_COMPAT = "androidx.appcompat:appcompat:${Version.APP_COMPAT}"
     const val CORE_KTX = "androidx.core:core-ktx:${Version.CORE_KTX}"
+    const val FRAGMENT = "androidx.fragment:fragment-ktx:${Version.FRAGMENT}"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Version.CONSTRAINT}"
 
     const val NAVIGATION_FRAGMENT =

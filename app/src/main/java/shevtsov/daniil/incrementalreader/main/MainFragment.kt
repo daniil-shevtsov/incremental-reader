@@ -1,14 +1,13 @@
-package shevtsov.daniil.incrementalreader.fragmenta
+package shevtsov.daniil.incrementalreader.main
 
 import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import shevtsov.daniil.incrementalreader.R
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
-import shevtsov.daniil.incrementalreader.databinding.FragmentABinding.bind
-import shevtsov.daniil.incrementalreader.fragmenta.FragmentADirections.Companion.navigateToBDirection
+import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding.bind
 
-class FragmentA : Fragment(R.layout.fragment_a) {
+class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val binding by viewLifecycleLazy { bind(requireView()) }
 
@@ -16,7 +15,7 @@ class FragmentA : Fragment(R.layout.fragment_a) {
         super.onResume()
 
         view?.postDelayed(2000) {
-            val direction = navigateToBDirection()
+            val direction = MainFragmentDirections.navigateToCreationDirection()
             findNavController().navigate(direction)
         }
     }

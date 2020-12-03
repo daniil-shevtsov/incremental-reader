@@ -1,15 +1,15 @@
 package shevtsov.daniil.incrementalreader.core.di
 
 import dagger.Component
-import shevtsov.daniil.incrementalreader.fragmenta.FragmentA
-import shevtsov.daniil.incrementalreader.fragmentb.FragmentB
+import shevtsov.daniil.incrementalreader.main.MainFragment
+import shevtsov.daniil.incrementalreader.creation.CreationFragment
 
 @AppScope
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun inject(fragmentA: FragmentA)
+    fun inject(mainFragment: MainFragment)
 
-    fun inject(fragmentB: FragmentB)
+    fun inject(creationFragment: CreationFragment)
 
 }

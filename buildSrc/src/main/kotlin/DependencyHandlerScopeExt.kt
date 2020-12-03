@@ -43,6 +43,7 @@ fun DependencyHandlerScope.instrumentationTestDependencies() {
 fun DependencyHandlerScope.android() {
     implementation(Dependency.APP_COMPAT)
     implementation(Dependency.CORE_KTX)
+    implementation(Dependency.FRAGMENT)
     implementation(Dependency.CONSTRAINT_LAYOUT)
 }
 
