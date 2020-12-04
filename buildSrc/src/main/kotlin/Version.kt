@@ -5,7 +5,7 @@ object Version {
     const val CONSTRAINT = "1.1.3"
 
     const val LIFECYCLE = "2.2.0"
-    const val NAVIGATION = "2.3.0"
+    const val NAVIGATION = "2.3.2"
 
     const val RETROFIT = "2.8.1"
     const val OK_HTTP = "4.7.2"

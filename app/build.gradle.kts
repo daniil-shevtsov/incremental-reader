@@ -62,7 +62,7 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(kotlin("stdlib-jdk7", "1.3.70"))
+    implementation(kotlin("stdlib-jdk7", "1.4.20"))
 
     appDependencies()
 
