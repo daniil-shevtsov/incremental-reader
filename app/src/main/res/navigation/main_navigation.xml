@@ -12,11 +12,27 @@
         <action
             android:id="@+id/navigate_to_creation_direction"
             app:destination="@id/creation_fragment" />
+        <action
+            android:id="@+id/navigate_to_learning_direction"
+            app:destination="@id/learning_fragment" />
+        <action
+            android:id="@+id/navigate_to_structure_direction"
+            app:destination="@id/structure_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/creation_fragment"
         android:name="shevtsov.daniil.incrementalreader.creation.CreationFragment"
         tools:layout="@layout/fragment_creation" />
+
+    <fragment
+        android:id="@+id/learning_fragment"
+        android:name="shevtsov.daniil.incrementalreader.learning.LearningFragment"
+        tools:layout="@layout/fragment_learning" />
+
+    <fragment
+        android:id="@+id/structure_fragment"
+        android:name="shevtsov.daniil.incrementalreader.structure.StructureFragment"
+        tools:layout="@layout/fragment_structure" />
 
 </navigation>

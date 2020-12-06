@@ -3,6 +3,8 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 fun DependencyHandlerScope.appDependencies() {
     android()
 
+    coroutines()
+
     navigation()
 
     network()
@@ -12,6 +14,10 @@ fun DependencyHandlerScope.appDependencies() {
     dependencyInjection()
 
     misc()
+}
+
+fun DependencyHandlerScope.coroutines() {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 }
 
 fun DependencyHandlerScope.unitTestDependencies() {
