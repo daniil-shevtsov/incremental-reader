@@ -43,6 +43,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     }
 
+    private fun FragmentMainBinding.initViews() {
+        openCreationButton.setOnClickListener { viewModel.onOpenCreation() }
+        openLearningButton.setOnClickListener { viewModel.onOpenLearning() }
+        openStructureButton.setOnClickListener { viewModel.onOpenStructure() }
+    }
+
     private fun handleEvent(event: MainEvent) {
         when (event) {
             is MainEvent.OpenCreation -> openCreation()
@@ -66,9 +72,4 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         findNavController().navigate(direction)
     }
 
-    private fun FragmentMainBinding.initViews() {
-        openCreationButton.setOnClickListener { viewModel.onOpenCreation() }
-        openLearningButton.setOnClickListener { viewModel.onOpenLearning() }
-        openStructureButton.setOnClickListener { viewModel.onOpenStructure() }
-    }
 }

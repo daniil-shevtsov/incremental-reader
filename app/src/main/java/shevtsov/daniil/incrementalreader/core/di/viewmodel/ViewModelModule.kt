@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import shevtsov.daniil.incrementalreader.core.di.AppScope
-import shevtsov.daniil.incrementalreader.creation.CreationFragmentViewModel
+import shevtsov.daniil.incrementalreader.creation.CreationViewModel
 import shevtsov.daniil.incrementalreader.main.MainViewModel
 
 @Module
@@ -23,7 +23,7 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(CreationFragmentViewModel::class)
-    fun bindFragmentBViewModel(viewModel: CreationFragmentViewModel): ViewModel
+    @ViewModelKey(CreationViewModel::class)
+    fun bindFragmentBViewModel(viewModel: CreationViewModel): ViewModel
 
 }
