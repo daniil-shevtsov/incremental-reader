@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.creation.domain
+package shevtsov.daniil.incrementalreader.storage.domain
 
 import javax.inject.Inject
 

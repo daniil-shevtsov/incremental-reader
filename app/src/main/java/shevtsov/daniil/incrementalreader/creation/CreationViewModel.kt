@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.core.util.toImmutable
-import shevtsov.daniil.incrementalreader.creation.domain.SaveCreatedUseCase
+import shevtsov.daniil.incrementalreader.storage.domain.SaveCreatedUseCase
 import javax.inject.Inject
 
 class CreationViewModel @Inject constructor(
