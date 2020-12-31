@@ -6,4 +6,6 @@
 
     <color name="creationBackground">#43B0DA</color>
     <color name="creationTextField">#C0DEEA</color>
+
+    <color name="structureItemBackground">#C0DEEA</color>
 </resources>
