@@ -3,10 +3,15 @@ package shevtsov.daniil.incrementalreader.creation
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.R
 import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
@@ -34,25 +39,41 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.initViews()
 
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewModel.events.collect { event -> handleEvent(event) }
-//        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.events.collect { event -> handleEvent(event) }
+        }
 
     }
 
-    private fun FragmentCreationBinding.initViews() {
-        with(creationEditText) {
-            doAfterTextChanged { editable ->
-                viewModel.onTextEntered(text = editable.toString())
-            }
-
-            setOnFocusChangeListener { v, hasFocus ->
-                if (!hasFocus) {
-                    viewModel.onSaveText()
-                }
-            }
+    private fun handleEvent(event: CreationScreenEvent) {
+        when (event) {
+            is CreationScreenEvent.ShowItemSaved -> showItemSavedToast(itemName = event.itemName)
         }
+    }
 
+    private fun showItemSavedToast(itemName: String) {
+        val message = getString(R.string.item_created_message, itemName)
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun FragmentCreationBinding.initViews() {
+        creationItemNameEditText.setListeners(
+            textEnteredAction = viewModel::onNameEntered,
+        )
+
+        creationItemContentEditText.setListeners(
+            textEnteredAction = viewModel::onContentEntered,
+        )
+
+        creationCreateButton.setOnClickListener { viewModel.onSaveContent() }
+    }
+
+    private fun EditText.setListeners(
+        textEnteredAction: (text: String) -> Unit
+    ) {
+        doAfterTextChanged { editable ->
+            textEnteredAction.invoke(editable.toString())
+        }
     }
 
 }

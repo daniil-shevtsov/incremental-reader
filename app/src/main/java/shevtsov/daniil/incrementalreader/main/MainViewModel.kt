@@ -11,24 +11,24 @@ class MainViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    private val _events = MutableSharedFlow<MainEvent>()
+    private val _events = MutableSharedFlow<MainScreenEvent>()
     val events = _events.toImmutable()
 
     fun onOpenCreation() {
         viewModelScope.launch {
-            _events.emit(MainEvent.OpenCreation)
+            _events.emit(MainScreenEvent.OpenCreation)
         }
     }
 
     fun onOpenLearning() {
         viewModelScope.launch {
-            _events.emit(MainEvent.OpenLearning)
+            _events.emit(MainScreenEvent.OpenLearning)
         }
     }
 
     fun onOpenStructure() {
         viewModelScope.launch {
-            _events.emit(MainEvent.OpenStructure)
+            _events.emit(MainScreenEvent.OpenStructure)
         }
     }
 

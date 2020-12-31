@@ -49,11 +49,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         openStructureButton.setOnClickListener { viewModel.onOpenStructure() }
     }
 
-    private fun handleEvent(event: MainEvent) {
+    private fun handleEvent(event: MainScreenEvent) {
         when (event) {
-            is MainEvent.OpenCreation -> openCreation()
-            is MainEvent.OpenLearning -> openLearning()
-            is MainEvent.OpenStructure -> openStructure()
+            is MainScreenEvent.OpenCreation -> openCreation()
+            is MainScreenEvent.OpenLearning -> openLearning()
+            is MainScreenEvent.OpenStructure -> openStructure()
         }
     }
 
