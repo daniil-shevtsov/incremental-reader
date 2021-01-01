@@ -40,7 +40,11 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
         binding.initViews()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.events.collect { event -> handleEvent(event) }
+            viewModel.state.collect { state -> renderState(state = state) }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.events.collect { event -> handleEvent(event = event) }
         }
 
     }
