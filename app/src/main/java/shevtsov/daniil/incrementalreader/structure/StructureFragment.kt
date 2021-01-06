@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.R
@@ -14,7 +15,9 @@ import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
 import shevtsov.daniil.incrementalreader.databinding.FragmentStructureBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentStructureBinding.bind
+import shevtsov.daniil.incrementalreader.learning.LearningInitArguments
 import shevtsov.daniil.incrementalreader.structure.adapter.StructureAdapter
+import shevtsov.daniil.incrementalreader.structure.adapter.StructureAdapterAction
 import javax.inject.Inject
 
 class StructureFragment : Fragment(R.layout.fragment_structure) {
@@ -26,7 +29,7 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
 
     private val viewModel: StructureViewModel by viewModels { viewModelFactory }
 
-    private val structureAdapter = StructureAdapter()
+    private val structureAdapter = StructureAdapter(actionCallback = this::handleAdapterAction)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -54,7 +57,21 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
     }
 
     private fun handleEvent(event: StructureScreenEvent) {
+        when (event) {
+            is StructureScreenEvent.OpenLearning -> openLearning(itemId = event.itemId)
+        }
+    }
 
+    private fun handleAdapterAction(action: StructureAdapterAction) {
+        when (action) {
+            is StructureAdapterAction.ItemSelected -> viewModel.onItemSelected(id = action.itemId)
+        }
+    }
+
+    private fun openLearning(itemId: String) {
+        val arguments = LearningInitArguments.SelectedItem(itemId = itemId)
+        val direction = StructureFragmentDirections.structureToLearning(initArguments = arguments)
+        findNavController().navigate(direction)
     }
 
     private fun FragmentStructureBinding.initViews() {

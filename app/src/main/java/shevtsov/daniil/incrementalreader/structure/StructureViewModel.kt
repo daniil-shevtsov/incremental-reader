@@ -41,5 +41,10 @@ class StructureViewModel @Inject constructor(
         return StructureViewState(items = items)
     }
 
+    fun onItemSelected(id: String) {
+        val event = StructureScreenEvent.OpenLearning(itemId = id)
+        viewModelScope.launch { _events.emit(value = event) }
+    }
+
 
 }

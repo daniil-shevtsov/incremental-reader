@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import shevtsov.daniil.incrementalreader.databinding.ItemStructureBinding
 import shevtsov.daniil.incrementalreader.structure.StructureInformationItem
 
-class StructureAdapter :
+typealias StructureAdapterCallback = (action: StructureAdapterAction) -> Unit
+
+class StructureAdapter(private val actionCallback: StructureAdapterCallback) :
     ListAdapter<StructureInformationItem, StructureAdapter.ViewHolder>(DiffUtilCallback) {
 
     override fun onCreateViewHolder(
@@ -21,7 +23,10 @@ class StructureAdapter :
             false
         )
 
-        return ViewHolder(binding = itemBinding)
+        return ViewHolder(
+            binding = itemBinding,
+            actionCallback = actionCallback
+        )
     }
 
     override fun onBindViewHolder(
@@ -31,10 +36,23 @@ class StructureAdapter :
 
 
     class ViewHolder(
-        private val binding: ItemStructureBinding
+        private val binding: ItemStructureBinding,
+        private val actionCallback: StructureAdapterCallback
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        private var itemId: String? = null
+
+        init {
+            binding.root.setOnClickListener {
+                itemId?.let {
+                    actionCallback.invoke(StructureAdapterAction.ItemSelected(itemId = it))
+                }
+            }
+        }
+
         fun bind(item: StructureInformationItem) {
+            itemId = item.id
+
             with(binding) {
                 structureItemTitleTextView.text = item.title
             }

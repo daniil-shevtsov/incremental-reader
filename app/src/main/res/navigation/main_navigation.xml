@@ -10,13 +10,13 @@
         android:name="shevtsov.daniil.incrementalreader.main.MainFragment"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/navigate_to_creation_direction"
+            android:id="@+id/main_to_creation"
             app:destination="@id/creation_fragment" />
         <action
-            android:id="@+id/navigate_to_learning_direction"
+            android:id="@+id/main_to_learning"
             app:destination="@id/learning_fragment" />
         <action
-            android:id="@+id/navigate_to_structure_direction"
+            android:id="@+id/main_to_structure"
             app:destination="@id/structure_fragment" />
     </fragment>
 
@@ -28,11 +28,19 @@
     <fragment
         android:id="@+id/learning_fragment"
         android:name="shevtsov.daniil.incrementalreader.learning.LearningFragment"
-        tools:layout="@layout/fragment_learning" />
+        tools:layout="@layout/fragment_learning">
+        <argument
+            android:name="initArguments"
+            app:argType="shevtsov.daniil.incrementalreader.learning.LearningInitArguments" />
+    </fragment>
 
     <fragment
         android:id="@+id/structure_fragment"
         android:name="shevtsov.daniil.incrementalreader.structure.StructureFragment"
-        tools:layout="@layout/fragment_structure" />
+        tools:layout="@layout/fragment_structure">
+        <action
+            android:id="@+id/structure_to_learning"
+            app:destination="@id/learning_fragment" />
+    </fragment>
 
 </navigation>

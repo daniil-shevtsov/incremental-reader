@@ -15,6 +15,7 @@ import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
 import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding.bind
+import shevtsov.daniil.incrementalreader.learning.LearningInitArguments
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -58,17 +59,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun openCreation() {
-        val direction = MainFragmentDirections.navigateToCreationDirection()
+        val direction = MainFragmentDirections.mainToCreation()
         findNavController().navigate(direction)
     }
 
     private fun openLearning() {
-        val direction = MainFragmentDirections.navigateToLearningDirection()
+        val arguments = LearningInitArguments.Empty
+        val direction = MainFragmentDirections.mainToLearning(initArguments = arguments)
         findNavController().navigate(direction)
     }
 
     private fun openStructure() {
-        val direction = MainFragmentDirections.navigateToStructureDirection()
+        val direction = MainFragmentDirections.mainToStructure()
         findNavController().navigate(direction)
     }
 

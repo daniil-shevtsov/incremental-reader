@@ -1,4 +1,5 @@
 package shevtsov.daniil.incrementalreader.structure
 
-class StructureScreenEvent {
+sealed class StructureScreenEvent {
+    data class OpenLearning(val itemId: String) : StructureScreenEvent()
 }
