@@ -19,6 +19,7 @@ import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArgumen
 import shevtsov.daniil.incrementalreader.structure.presentation.StructureScreenEvent
 import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewModel
 import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewState
+import shevtsov.daniil.incrementalreader.structure.view.adapter.MarginItemDecoration
 import shevtsov.daniil.incrementalreader.structure.view.adapter.StructureAdapter
 import shevtsov.daniil.incrementalreader.structure.view.adapter.StructureAdapterAction
 import javax.inject.Inject
@@ -80,7 +81,10 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
     private fun FragmentStructureBinding.initViews() {
         with(structureItemsRecyclerView) {
             adapter = structureAdapter
+            addItemDecoration(MarginItemDecoration(spaceSize = doToPx(value = 16)))
         }
     }
+
+    private fun doToPx(value: Int): Int = (value * resources.displayMetrics.density).toInt();
 
 }

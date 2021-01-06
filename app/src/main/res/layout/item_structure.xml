@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:foreground="?android:selectableItemBackgroundBorderless"
-    android:background="@color/structureItemBackground">
+    android:background="@drawable/background_item_structure"
+    android:foreground="?android:selectableItemBackgroundBorderless">
 
     <TextView
         android:id="@+id/structureItemTitleTextView"
+        style="@style/StructureItemTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
