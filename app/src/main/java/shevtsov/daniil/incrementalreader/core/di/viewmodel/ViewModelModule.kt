@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import shevtsov.daniil.incrementalreader.core.di.AppScope
 import shevtsov.daniil.incrementalreader.creation.presentation.CreationViewModel
+import shevtsov.daniil.incrementalreader.learning.presentation.LearningViewModel
 import shevtsov.daniil.incrementalreader.main.presentation.MainViewModel
 import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewModel
 
@@ -31,5 +32,10 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(StructureViewModel::class)
     fun bindStructureViewModel(viewModel: StructureViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LearningViewModel::class)
+    fun bindLearningViewModel(viewModel: LearningViewModel): ViewModel
 
 }
