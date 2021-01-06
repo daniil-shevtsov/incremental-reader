@@ -4,18 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/creationBackground">
-
-    <TextView
-        android:id="@+id/creationTitleTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/creation_screen_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="@color/commonBackground">
 
     <EditText
         android:id="@+id/creationItemNameEditText"
@@ -29,7 +18,7 @@
         app:layout_constraintBottom_toTopOf="@id/creationItemContentEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/creationTitleTextView"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="lol kek" />
 
     <EditText
@@ -46,8 +35,9 @@
         app:layout_constraintTop_toBottomOf="@id/creationItemNameEditText"
         tools:text="lol kek cheburek" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/creationCreateButton"
+        style="@style/CommonButton"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
