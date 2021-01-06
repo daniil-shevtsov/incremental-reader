@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.main
+package shevtsov.daniil.incrementalreader.main.view
 
 import android.content.Context
 import android.os.Bundle
@@ -15,7 +15,9 @@ import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
 import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding.bind
-import shevtsov.daniil.incrementalreader.learning.LearningInitArguments
+import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
+import shevtsov.daniil.incrementalreader.main.presentation.MainScreenEvent
+import shevtsov.daniil.incrementalreader.main.presentation.MainViewModel
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {

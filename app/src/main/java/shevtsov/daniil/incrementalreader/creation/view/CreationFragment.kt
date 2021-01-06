@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.creation
+package shevtsov.daniil.incrementalreader.creation.view
 
 import android.content.Context
 import android.os.Bundle
@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.R
 import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
+import shevtsov.daniil.incrementalreader.creation.presentation.CreationScreenEvent
+import shevtsov.daniil.incrementalreader.creation.presentation.CreationViewModel
 import shevtsov.daniil.incrementalreader.databinding.FragmentCreationBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentCreationBinding.bind
 import javax.inject.Inject

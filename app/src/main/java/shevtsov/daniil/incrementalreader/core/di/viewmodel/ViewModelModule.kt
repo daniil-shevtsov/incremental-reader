@@ -6,9 +6,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import shevtsov.daniil.incrementalreader.core.di.AppScope
-import shevtsov.daniil.incrementalreader.creation.CreationViewModel
-import shevtsov.daniil.incrementalreader.main.MainViewModel
-import shevtsov.daniil.incrementalreader.structure.StructureViewModel
+import shevtsov.daniil.incrementalreader.creation.presentation.CreationViewModel
+import shevtsov.daniil.incrementalreader.main.presentation.MainViewModel
+import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewModel
 
 @Module
 interface ViewModelModule {

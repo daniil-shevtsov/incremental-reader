@@ -19,4 +19,6 @@ class TextStorageRepositoryImpl @Inject constructor(
 
     override fun getItems(): List<InformationItem> = storage.getAll().map(mapper::map)
 
+    override fun getItem(itemId: String): InformationItem? =
+        storage.get(key = itemId)?.let { mapper.map(dto = it) }
 }

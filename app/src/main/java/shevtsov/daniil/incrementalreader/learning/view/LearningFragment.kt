@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.learning
+package shevtsov.daniil.incrementalreader.learning.view
 
 import androidx.fragment.app.Fragment
 import shevtsov.daniil.incrementalreader.R

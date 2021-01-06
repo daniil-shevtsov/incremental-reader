@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.structure
+package shevtsov.daniil.incrementalreader.structure.view.adapter
 
 data class StructureInformationItem(
     val id: String,

@@ -1,10 +1,10 @@
 package shevtsov.daniil.incrementalreader.core.di
 
 import dagger.Component
-import shevtsov.daniil.incrementalreader.creation.CreationFragment
 import shevtsov.daniil.incrementalreader.creation.di.CreationModule
-import shevtsov.daniil.incrementalreader.main.MainFragment
-import shevtsov.daniil.incrementalreader.structure.StructureFragment
+import shevtsov.daniil.incrementalreader.creation.view.CreationFragment
+import shevtsov.daniil.incrementalreader.main.view.MainFragment
+import shevtsov.daniil.incrementalreader.structure.view.StructureFragment
 
 @AppScope
 @Component(

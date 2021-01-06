@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.creation
+package shevtsov.daniil.incrementalreader.creation.presentation
 
 sealed class CreationScreenEvent {
 

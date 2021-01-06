@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.structure
+package shevtsov.daniil.incrementalreader.structure.view
 
 import android.content.Context
 import android.os.Bundle
@@ -15,9 +15,12 @@ import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
 import shevtsov.daniil.incrementalreader.databinding.FragmentStructureBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentStructureBinding.bind
-import shevtsov.daniil.incrementalreader.learning.LearningInitArguments
-import shevtsov.daniil.incrementalreader.structure.adapter.StructureAdapter
-import shevtsov.daniil.incrementalreader.structure.adapter.StructureAdapterAction
+import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
+import shevtsov.daniil.incrementalreader.structure.presentation.StructureScreenEvent
+import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewModel
+import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewState
+import shevtsov.daniil.incrementalreader.structure.view.adapter.StructureAdapter
+import shevtsov.daniil.incrementalreader.structure.view.adapter.StructureAdapterAction
 import javax.inject.Inject
 
 class StructureFragment : Fragment(R.layout.fragment_structure) {

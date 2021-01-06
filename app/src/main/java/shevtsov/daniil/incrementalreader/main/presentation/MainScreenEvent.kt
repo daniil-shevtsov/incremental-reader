@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.main
+package shevtsov.daniil.incrementalreader.main.presentation
 
 sealed class MainScreenEvent {
 

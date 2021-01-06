@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.creation
+package shevtsov.daniil.incrementalreader.creation.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

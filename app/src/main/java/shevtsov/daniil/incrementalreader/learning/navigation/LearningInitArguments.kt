@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.learning
+package shevtsov.daniil.incrementalreader.learning.navigation
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

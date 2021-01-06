@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="shevtsov.daniil.incrementalreader.main.MainFragment"
+        android:name="shevtsov.daniil.incrementalreader.main.view.MainFragment"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/main_to_creation"
@@ -22,21 +22,21 @@
 
     <fragment
         android:id="@+id/creation_fragment"
-        android:name="shevtsov.daniil.incrementalreader.creation.CreationFragment"
+        android:name="shevtsov.daniil.incrementalreader.creation.view.CreationFragment"
         tools:layout="@layout/fragment_creation" />
 
     <fragment
         android:id="@+id/learning_fragment"
-        android:name="shevtsov.daniil.incrementalreader.learning.LearningFragment"
+        android:name="shevtsov.daniil.incrementalreader.learning.view.LearningFragment"
         tools:layout="@layout/fragment_learning">
         <argument
             android:name="initArguments"
-            app:argType="shevtsov.daniil.incrementalreader.learning.LearningInitArguments" />
+            app:argType="shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments" />
     </fragment>
 
     <fragment
         android:id="@+id/structure_fragment"
-        android:name="shevtsov.daniil.incrementalreader.structure.StructureFragment"
+        android:name="shevtsov.daniil.incrementalreader.structure.view.StructureFragment"
         tools:layout="@layout/fragment_structure">
         <action
             android:id="@+id/structure_to_learning"

@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.structure.adapter
+package shevtsov.daniil.incrementalreader.structure.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import shevtsov.daniil.incrementalreader.databinding.ItemStructureBinding
-import shevtsov.daniil.incrementalreader.structure.StructureInformationItem
 
 typealias StructureAdapterCallback = (action: StructureAdapterAction) -> Unit
 

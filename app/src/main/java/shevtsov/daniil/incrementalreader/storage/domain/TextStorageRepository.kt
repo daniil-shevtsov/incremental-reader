@@ -6,4 +6,6 @@ interface TextStorageRepository {
 
     fun getItems(): List<InformationItem>
 
+    fun getItem(itemId: String): InformationItem?
+
 }

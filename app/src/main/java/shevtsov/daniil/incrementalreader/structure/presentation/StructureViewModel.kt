@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.structure
+package shevtsov.daniil.incrementalreader.structure.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -45,6 +45,5 @@ class StructureViewModel @Inject constructor(
         val event = StructureScreenEvent.OpenLearning(itemId = id)
         viewModelScope.launch { _events.emit(value = event) }
     }
-
 
 }
