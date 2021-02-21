@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.core.util.toImmutable
 import shevtsov.daniil.incrementalreader.storage.domain.SaveCreatedUseCase
@@ -23,22 +25,35 @@ class StructureViewModel @Inject constructor(
     val events = _events.toImmutable()
 
     init {
-        saveCreated(itemName = "lol1", text = "kek1")
-        saveCreated(itemName = "lol2", text = "kek2")
-        saveCreated(itemName = "lol3", text = "kek3")
-
         viewModelScope.launch {
-            _state.emit(value = createInitialState())
+            saveCreated(itemName = "lol1", text = "kek1")
+            saveCreated(itemName = "lol2", text = "kek2")
+            saveCreated(itemName = "lol3", text = "kek3")
+
+            loadItems()
         }
 
     }
 
     private fun createInitialState(): StructureViewState {
-        val items = getInformationItems
-            .invoke()
-            .map(structureInformationItemMapper::map)
+        return StructureViewState(contentViewState = StructureContentViewState.Loading)
+//        viewModelScope.launch {
+//
+//        }
 
-        return StructureViewState(items = items)
+    }
+
+    private fun loadItems() {
+        viewModelScope.launch {
+            val items = getInformationItems()
+                .map { list -> list.map(structureInformationItemMapper::map) }
+                .single()
+
+            val newState =
+                StructureViewState(contentViewState = StructureContentViewState.Content(items = items))
+            _state.emit(newState)
+        }
+
     }
 
     fun onItemSelected(id: String) {

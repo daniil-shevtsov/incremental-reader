@@ -33,13 +33,17 @@ class LearningViewModel @Inject constructor(
     }
 
     private fun handleSelectedItem(id: String) {
-        val item = getSavedItem.invoke(itemId = id)
-        if (item != null) {
-            val state = LearningViewState(
-                itemName = item.name,
-                itemContent = item.content
-            )
-            viewModelScope.launch { _state.emit(value = state) }
+        viewModelScope.launch {
+            val item = getSavedItem.invoke(itemId = id)
+
+            if (item != null) {
+                val state = LearningViewState(
+                    itemName = item.name,
+                    itemContent = item.content
+                )
+
+                _state.emit(value = state)
+            }
         }
     }
 

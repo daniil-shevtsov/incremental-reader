@@ -13,6 +13,8 @@ fun DependencyHandlerScope.appDependencies() {
 
     dependencyInjection()
 
+    database()
+
     misc()
 }
 
@@ -77,6 +79,12 @@ fun DependencyHandlerScope.rxJava() {
 fun DependencyHandlerScope.dependencyInjection() {
     implementation("com.google.dagger:dagger:${Version.DAGGER}")
     kapt("com.google.dagger:dagger-compiler:${Version.DAGGER}")
+}
+
+fun DependencyHandlerScope.database() {
+    implementation("androidx.room:room-ktx:${Version.ROOM}")
+    kapt("androidx.room:room-compiler:${Version.ROOM}")
+    androidTestImplementation("androidx.room:room-testing:${Version.ROOM}")
 }
 
 fun DependencyHandlerScope.misc() {
