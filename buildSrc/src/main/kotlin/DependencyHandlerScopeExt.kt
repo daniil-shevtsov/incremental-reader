@@ -3,75 +3,84 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 fun DependencyHandlerScope.appDependencies() {
     android()
 
+    coroutines()
+
     navigation()
 
     network()
 
     rxJava()
 
-    debugImplementation(Dependency.LEAK_CANARY)
-
     dependencyInjection()
 
+    misc()
+}
+
+fun DependencyHandlerScope.coroutines() {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 }
 
 fun DependencyHandlerScope.unitTestDependencies() {
-    testImplementation(Dependency.CORE_TESTING)
+    testImplementation("androidx.arch.core:core-testing:${Version.CORE_TESTING}")
 
-    testRuntimeOnly(Dependency.JUPITER_ENGINE)
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.JUPITER}")
 
-    testImplementation(Dependency.JUPITER_API)
-    testImplementation(Dependency.JUPITER_PARAMETERS)
-    testImplementation(Dependency.MOCKK)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.JUPITER}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${Version.JUPITER}")
+    testImplementation("io.mockk:mockk:${Version.MOCKK}")
 }
 
 fun DependencyHandlerScope.instrumentationTestDependencies() {
-    androidTestImplementation(Dependency.JUNIT_EXT)
-    androidTestImplementation(Dependency.TEST_RUNNER)
-    androidTestImplementation(Dependency.TEST_RULES)
+    androidTestImplementation("androidx.test.ext:junit:${Version.JUNIT}")
+    androidTestImplementation("androidx.test:runner:${Version.JUNIT}")
+    androidTestImplementation("androidx.test:rules:${Version.TEST_RULES}")
 
-    androidTestImplementation(Dependency.ESPRESSO)
-    androidTestImplementation(Dependency.KAKAO)
-    androidTestImplementation(Dependency.MOCKK_ANDROID)
+    androidTestImplementation("androidx.test.espresso:espresso-core:${Version.ESPRESSO}")
+    androidTestImplementation("com.agoda.kakao:kakao:${Version.KAKAO}")
+    androidTestImplementation("io.mockk:mockk-android:${Version.MOCKK}")
 
-    androidTestImplementation(Dependency.NAVIGATION_TESTING)
-    debugImplementation(Dependency.FRAGMENT_TESTING)
+    androidTestImplementation("androidx.navigation:navigation-testing:${Version.NAVIGATION}")
+    debugImplementation("androidx.fragment:fragment-testing:${Version.FRAGMENT_TESTING}")
 
-    androidTestImplementation(Dependency.MOCK_WEB_SERVER)
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:${Version.OK_HTTP}")
 }
 
 fun DependencyHandlerScope.android() {
-    implementation(Dependency.APP_COMPAT)
-    implementation(Dependency.CORE_KTX)
-    implementation(Dependency.CONSTRAINT_LAYOUT)
+    implementation("androidx.appcompat:appcompat:${Version.APP_COMPAT}")
+    implementation("androidx.core:core-ktx:${Version.CORE_KTX}")
+    implementation("androidx.constraintlayout:constraintlayout:${Version.CONSTRAINT}")
 }
 
 fun DependencyHandlerScope.navigation() {
-    implementation(Dependency.NAVIGATION_FRAGMENT)
-    implementation(Dependency.NAVIGATION_UI)
+    implementation("androidx.navigation:navigation-fragment-ktx:${Version.NAVIGATION}")
+    implementation("androidx.navigation:navigation-ui-ktx:${Version.NAVIGATION}")
 
-    implementation(Dependency.LIFECYCLE)
+    implementation("androidx.lifecycle:lifecycle-common-java8:${Version.LIFECYCLE}")
 }
 
 fun DependencyHandlerScope.network() {
-    implementation(Dependency.RETROFIT)
-    implementation(Dependency.LOGGING_INTERCEPTOR)
+    implementation("com.squareup.retrofit2:retrofit:${Version.RETROFIT}")
+    implementation("com.squareup.okhttp3:logging-interceptor:${Version.OK_HTTP}")
 
-    implementation(Dependency.GSON)
-    implementation(Dependency.GSON_CONVERTER)
+    implementation("com.google.code.gson:gson:${Version.GSON}")
+    implementation("com.squareup.retrofit2:converter-gson:${Version.RETROFIT}")
 
-    implementation(Dependency.RETROFIT_RX_ADAPTER)
+    implementation("com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Version.RETROFIT_RX_ADAPTER}")
 }
 
 fun DependencyHandlerScope.rxJava() {
-    implementation(Dependency.RX_JAVA)
-    implementation(Dependency.RX_ANDROID)
-    implementation(Dependency.RX_KOTLIN)
+    implementation("io.reactivex.rxjava2:rxjava:${Version.RX_JAVA}:")
+    implementation("io.reactivex.rxjava2:rxandroid:${Version.RX_ANDROID}")
+    implementation("io.reactivex.rxjava2:rxkotlin:${Version.RX_KOTLIN}")
 }
 
 fun DependencyHandlerScope.dependencyInjection() {
-    implementation(Dependency.DAGGER)
-    kapt(Dependency.DAGGER_COMPILER)
+    implementation("com.google.dagger:dagger:${Version.DAGGER}")
+    kapt("com.google.dagger:dagger-compiler:${Version.DAGGER}")
+}
+
+fun DependencyHandlerScope.misc() {
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY}")
 }
 
 //TODO: Do something about these weird hacks

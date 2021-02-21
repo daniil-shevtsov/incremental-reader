@@ -3,20 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/fragment_a">
+    app:startDestination="@id/main_fragment">
 
     <fragment
-        android:id="@+id/fragment_a"
-        android:name="shevtsov.daniil.incrementalreader.fragmenta.FragmentA"
-        tools:layout="@layout/fragment_a">
+        android:id="@+id/main_fragment"
+        android:name="shevtsov.daniil.incrementalreader.main.view.MainFragment"
+        tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/navigate_to_b_direction"
-            app:destination="@id/fragment_b" />
+            android:id="@+id/main_to_creation"
+            app:destination="@id/creation_fragment" />
+        <action
+            android:id="@+id/main_to_learning"
+            app:destination="@id/learning_fragment" />
+        <action
+            android:id="@+id/main_to_structure"
+            app:destination="@id/structure_fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_b"
-        android:name="shevtsov.daniil.incrementalreader.fragmentb.FragmentB"
-        tools:layout="@layout/fragment_b" />
+        android:id="@+id/creation_fragment"
+        android:name="shevtsov.daniil.incrementalreader.creation.view.CreationFragment"
+        tools:layout="@layout/fragment_creation" />
+
+    <fragment
+        android:id="@+id/learning_fragment"
+        android:name="shevtsov.daniil.incrementalreader.learning.view.LearningFragment"
+        tools:layout="@layout/fragment_learning">
+        <argument
+            android:name="initArguments"
+            app:argType="shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/structure_fragment"
+        android:name="shevtsov.daniil.incrementalreader.structure.view.StructureFragment"
+        tools:layout="@layout/fragment_structure">
+        <action
+            android:id="@+id/structure_to_learning"
+            app:destination="@id/learning_fragment" />
+    </fragment>
 
 </navigation>

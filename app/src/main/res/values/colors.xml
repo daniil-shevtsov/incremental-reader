@@ -3,4 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="commonBackground">#43B0DA</color>
+    <color name="commonTextField">#C0DEEA</color>
+    <color name="commonButtonBackground">#AFE9FF</color>
+
+    <color name="structureItemBackground">#BBE9FB</color>
 </resources>

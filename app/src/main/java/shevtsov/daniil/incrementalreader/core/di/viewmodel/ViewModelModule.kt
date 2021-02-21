@@ -6,8 +6,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import shevtsov.daniil.incrementalreader.core.di.AppScope
-import shevtsov.daniil.incrementalreader.fragmenta.FragmentAViewModel
-import shevtsov.daniil.incrementalreader.fragmentb.FragmentBViewModel
+import shevtsov.daniil.incrementalreader.creation.presentation.CreationViewModel
+import shevtsov.daniil.incrementalreader.learning.presentation.LearningViewModel
+import shevtsov.daniil.incrementalreader.main.presentation.MainViewModel
+import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewModel
 
 @Module
 interface ViewModelModule {
@@ -18,12 +20,22 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(FragmentAViewModel::class)
-    fun bindFragmentAViewModel(viewModel: FragmentAViewModel): ViewModel
+    @ViewModelKey(MainViewModel::class)
+    fun bindMainViewModel(viewModelMain: MainViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(FragmentBViewModel::class)
-    fun bindFragmentBViewModel(viewModel: FragmentBViewModel): ViewModel
+    @ViewModelKey(CreationViewModel::class)
+    fun bindCreationViewModel(viewModel: CreationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(StructureViewModel::class)
+    fun bindStructureViewModel(viewModel: StructureViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LearningViewModel::class)
+    fun bindLearningViewModel(viewModel: LearningViewModel): ViewModel
 
 }
