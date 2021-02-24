@@ -13,18 +13,15 @@ class TextStorageRepositoryImpl @Inject constructor(
 ) : TextStorageRepository {
 
     override suspend fun saveText(itemName: String, text: String) {
-        storageApi.save(
-            key = itemName,
-            value = InformationItemDto(id = itemName, name = itemName, content = text)
-        )
+        storageApi.save(value = InformationItemDto(name = itemName, content = text))
     }
 
     override fun getItems(): Flow<List<InformationItem>> {
         return storageApi.getAll().map { items -> items.map(mapper::map) }
     }
 
-    override suspend fun getItem(itemId: String): InformationItem? {
-        return storageApi.get(key = itemId)?.let { mapper.map(dto = it) }
+    override suspend fun getItem(itemId: Long): InformationItem? {
+        return storageApi.get(itemId = itemId)?.let { mapper.map(dto = it) }
     }
 
 }

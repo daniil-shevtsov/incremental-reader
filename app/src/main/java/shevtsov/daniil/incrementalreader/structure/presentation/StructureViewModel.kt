@@ -37,10 +37,6 @@ class StructureViewModel @Inject constructor(
 
     private fun createInitialState(): StructureViewState {
         return StructureViewState(contentViewState = StructureContentViewState.Loading)
-//        viewModelScope.launch {
-//
-//        }
-
     }
 
     private fun loadItems() {
@@ -56,7 +52,7 @@ class StructureViewModel @Inject constructor(
 
     }
 
-    fun onItemSelected(id: String) {
+    fun onItemSelected(id: Long) {
         val event = StructureScreenEvent.OpenLearning(itemId = id)
         viewModelScope.launch { _events.emit(value = event) }
     }

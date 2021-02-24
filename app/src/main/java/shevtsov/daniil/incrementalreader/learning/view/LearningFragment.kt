@@ -35,7 +35,7 @@ class LearningFragment : Fragment(R.layout.fragment_learning) {
         super.onAttach(context)
 
         (context.applicationContext as IncrementalReaderApplication)
-            .getAppComponent()
+            .appComponent
             .inject(this)
     }
 

@@ -33,7 +33,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onAttach(context)
 
         (context.applicationContext as IncrementalReaderApplication)
-            .getAppComponent()
+            .appComponent
             .inject(this)
     }
 

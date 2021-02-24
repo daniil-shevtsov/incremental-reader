@@ -9,6 +9,6 @@ sealed class LearningInitArguments : Parcelable {
     object Empty : LearningInitArguments()
 
     @Parcelize
-    data class SelectedItem(val itemId: String) : LearningInitArguments()
+    data class SelectedItem(val itemId: Long) : LearningInitArguments()
 
 }

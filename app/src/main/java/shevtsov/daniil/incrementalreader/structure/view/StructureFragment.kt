@@ -40,7 +40,7 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
         super.onAttach(context)
 
         (context.applicationContext as IncrementalReaderApplication)
-            .getAppComponent()
+            .appComponent
             .inject(this)
     }
 
@@ -81,7 +81,7 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
         }
     }
 
-    private fun openLearning(itemId: String) {
+    private fun openLearning(itemId: Long) {
         val arguments = LearningInitArguments.SelectedItem(itemId = itemId)
         val direction = StructureFragmentDirections.structureToLearning(initArguments = arguments)
         findNavController().navigate(direction)

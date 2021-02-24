@@ -5,9 +5,9 @@ import shevtsov.daniil.incrementalreader.storage.data.InformationItemDto
 
 interface StorageApi {
 
-    suspend fun save(key: String, value: InformationItemDto)
+    suspend fun save(value: InformationItemDto)
 
-    suspend fun get(key: String): InformationItemDto?
+    suspend fun get(itemId: Long): InformationItemDto?
 
     fun getAll(): Flow<List<InformationItemDto>>
 

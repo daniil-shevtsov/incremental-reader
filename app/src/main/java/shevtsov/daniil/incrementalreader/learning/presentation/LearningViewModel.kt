@@ -32,7 +32,7 @@ class LearningViewModel @Inject constructor(
 
     }
 
-    private fun handleSelectedItem(id: String) {
+    private fun handleSelectedItem(id: Long) {
         viewModelScope.launch {
             val item = getSavedItem.invoke(itemId = id)
 

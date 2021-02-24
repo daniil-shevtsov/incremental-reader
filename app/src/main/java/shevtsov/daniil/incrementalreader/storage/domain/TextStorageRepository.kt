@@ -8,6 +8,6 @@ interface TextStorageRepository {
 
    fun getItems(): Flow<List<InformationItem>>
 
-   suspend fun getItem(itemId: String): InformationItem?
+   suspend fun getItem(itemId: Long): InformationItem?
 
 }

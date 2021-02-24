@@ -11,12 +11,12 @@ class DatabaseStorage @Inject constructor(
     private val informationItemDao: InformationItemDao
 ) : StorageApi {
 
-    override suspend fun save(key: String, value: InformationItemDto) {
+    override suspend fun save(value: InformationItemDto) {
         informationItemDao.insert(value.toEntity())
     }
 
-    override suspend fun get(key: String): InformationItemDto? {
-        return informationItemDao.getItem(id = key.toLong())?.toDto()
+    override suspend fun get(itemId: Long): InformationItemDto? {
+        return informationItemDao.getItem(id = itemId)?.toDto()
     }
 
     override fun getAll(): Flow<List<InformationItemDto>> {
@@ -24,13 +24,12 @@ class DatabaseStorage @Inject constructor(
     }
 
     private fun InformationItemDto.toEntity() = InformationItemEntity(
-        itemId = id.toLong(),
         title = name,
         text = content
     )
 
     private fun InformationItemEntity.toDto() = InformationItemDto(
-        id = itemId.toString(),
+        id = itemId,
         name = title,
         content = text
     )
