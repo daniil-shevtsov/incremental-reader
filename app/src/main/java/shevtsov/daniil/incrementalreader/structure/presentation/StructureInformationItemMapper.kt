@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class StructureInformationItemMapper @Inject constructor() {
 
-    fun map(informationItem: InformationItem) = with(informationItem) {
+    fun map(informationItem: InformationItem): StructureInformationItem = with(informationItem) {
         StructureInformationItem(
             id = id,
             title = name

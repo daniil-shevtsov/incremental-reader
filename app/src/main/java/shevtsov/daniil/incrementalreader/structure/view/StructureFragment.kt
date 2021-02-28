@@ -16,6 +16,7 @@ import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
 import shevtsov.daniil.incrementalreader.databinding.FragmentStructureBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentStructureBinding.bind
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
+import shevtsov.daniil.incrementalreader.structure.presentation.StructureContentViewState
 import shevtsov.daniil.incrementalreader.structure.presentation.StructureScreenEvent
 import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewModel
 import shevtsov.daniil.incrementalreader.structure.presentation.StructureViewState
@@ -39,7 +40,7 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
         super.onAttach(context)
 
         (context.applicationContext as IncrementalReaderApplication)
-            .getAppComponent()
+            .appComponent
             .inject(this)
     }
 
@@ -57,7 +58,15 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
     }
 
     private fun renderState(state: StructureViewState) {
-        structureAdapter.submitList(state.items)
+        when(state.contentViewState) {
+            is StructureContentViewState.Loading -> {
+
+            }
+            is StructureContentViewState.Content -> {
+                structureAdapter.submitList(state.contentViewState.items)
+            }
+        }
+
     }
 
     private fun handleEvent(event: StructureScreenEvent) {
@@ -72,7 +81,7 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
         }
     }
 
-    private fun openLearning(itemId: String) {
+    private fun openLearning(itemId: Long) {
         val arguments = LearningInitArguments.SelectedItem(itemId = itemId)
         val direction = StructureFragmentDirections.structureToLearning(initArguments = arguments)
         findNavController().navigate(direction)

@@ -4,13 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.core.util.toImmutable
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
+import shevtsov.daniil.incrementalreader.learning.usecase.GetCalculatedItemUseCase
 import shevtsov.daniil.incrementalreader.storage.domain.GetSavedItemUseCase
+import shevtsov.daniil.incrementalreader.storage.domain.InformationItem
 import javax.inject.Inject
 
 class LearningViewModel @Inject constructor(
+    private val getCalculatedItem: GetCalculatedItemUseCase,
     private val getSavedItem: GetSavedItemUseCase,
 ) : ViewModel() {
 
@@ -29,17 +33,28 @@ class LearningViewModel @Inject constructor(
     }
 
     private fun handleEmpty() {
-
+        viewModelScope.launch {
+            getCalculatedItem.invoke().collect { item ->
+                showItem(item)
+            }
+        }
     }
 
-    private fun handleSelectedItem(id: String) {
-        val item = getSavedItem.invoke(itemId = id)
+    private fun handleSelectedItem(id: Long) {
+        viewModelScope.launch {
+            val item = getSavedItem.invoke(itemId = id)
+            showItem(item)
+        }
+    }
+
+    private suspend fun showItem(item: InformationItem?) {
         if (item != null) {
             val state = LearningViewState(
                 itemName = item.name,
                 itemContent = item.content
             )
-            viewModelScope.launch { _state.emit(value = state) }
+
+            _state.emit(value = state)
         }
     }
 

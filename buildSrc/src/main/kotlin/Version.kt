@@ -20,6 +20,8 @@ object Version {
 
     const val DAGGER = "2.23.1"
 
+    const val ROOM = "2.2.5"
+
     const val CORE_TESTING = "2.0.1"
 
     const val JUNIT = "1.1.1"

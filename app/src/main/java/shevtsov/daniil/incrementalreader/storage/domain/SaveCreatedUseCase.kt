@@ -6,7 +6,7 @@ class SaveCreatedUseCase @Inject constructor(
     private val textStorageRepository: TextStorageRepository
 ) {
 
-    operator fun invoke(
+    suspend operator fun invoke(
         itemName: String,
         text: String
     ) {

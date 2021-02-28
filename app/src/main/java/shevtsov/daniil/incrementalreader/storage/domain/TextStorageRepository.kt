@@ -1,11 +1,13 @@
 package shevtsov.daniil.incrementalreader.storage.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface TextStorageRepository {
 
-    fun saveText(itemName: String, text: String)
+   suspend fun saveText(itemName: String, text: String)
 
-    fun getItems(): List<InformationItem>
+   fun getItems(): Flow<List<InformationItem>>
 
-    fun getItem(itemId: String): InformationItem?
+   suspend fun getItem(itemId: Long): InformationItem?
 
 }

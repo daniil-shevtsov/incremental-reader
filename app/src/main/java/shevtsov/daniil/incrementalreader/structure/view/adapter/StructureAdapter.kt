@@ -39,7 +39,7 @@ class StructureAdapter(private val actionCallback: StructureAdapterCallback) :
         private val actionCallback: StructureAdapterCallback
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private var itemId: String? = null
+        private var itemId: Long? = null
 
         init {
             binding.root.setOnClickListener {
