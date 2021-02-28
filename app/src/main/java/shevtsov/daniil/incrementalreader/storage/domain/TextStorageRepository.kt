@@ -1,10 +1,11 @@
 package shevtsov.daniil.incrementalreader.storage.domain
 
 import kotlinx.coroutines.flow.Flow
+import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 
 interface TextStorageRepository {
 
-   suspend fun saveText(itemName: String, text: String)
+   suspend fun saveText(item: InformationItem)
 
    fun getItems(): Flow<List<InformationItem>>
 

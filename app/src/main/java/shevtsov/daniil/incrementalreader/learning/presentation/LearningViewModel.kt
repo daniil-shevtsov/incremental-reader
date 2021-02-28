@@ -10,7 +10,7 @@ import shevtsov.daniil.incrementalreader.core.util.toImmutable
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
 import shevtsov.daniil.incrementalreader.learning.usecase.GetCalculatedItemUseCase
 import shevtsov.daniil.incrementalreader.storage.domain.GetSavedItemUseCase
-import shevtsov.daniil.incrementalreader.storage.domain.InformationItem
+import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 import javax.inject.Inject
 
 class LearningViewModel @Inject constructor(
@@ -50,7 +50,7 @@ class LearningViewModel @Inject constructor(
     private suspend fun showItem(item: InformationItem?) {
         if (item != null) {
             val state = LearningViewState(
-                itemName = item.name,
+                itemName = item.title,
                 itemContent = item.content
             )
 

@@ -1,8 +1,8 @@
 package shevtsov.daniil.incrementalreader.structure.domain
 
 import kotlinx.coroutines.flow.Flow
-import shevtsov.daniil.incrementalreader.storage.domain.InformationItem
 import shevtsov.daniil.incrementalreader.storage.domain.TextStorageRepository
+import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 import javax.inject.Inject
 
 class GetInformationItemsUseCase @Inject constructor(

@@ -6,7 +6,18 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "information_item_table")
 data class InformationItemEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val itemId: Long = 0L,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id") val itemId: Long = 0L,
+
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "text") val text: String
+
+    @ColumnInfo(name = "text") val content: String,
+
+    @ColumnInfo(name = "creation_time") val creationTime: Long,
+
+    @ColumnInfo(name = "update_time") val updateTime: Long,
+
+    @ColumnInfo(name = "repetition_time") val lastRepetitionTime: Long,
+
+    @ColumnInfo(name = "parent_id") val parentId: Long? = null,
 )
