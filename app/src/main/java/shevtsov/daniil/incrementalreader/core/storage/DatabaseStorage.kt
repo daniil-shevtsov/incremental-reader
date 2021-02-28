@@ -1,5 +1,6 @@
 package shevtsov.daniil.incrementalreader.core.storage
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import shevtsov.daniil.incrementalreader.core.storage.room.InformationItemDao
@@ -12,15 +13,19 @@ class DatabaseStorage @Inject constructor(
 ) : StorageApi {
 
     override suspend fun save(value: InformationItemDto) {
+        Log.d("KEK", "save value: $value")
         informationItemDao.insert(value.toEntity())
     }
 
     override suspend fun get(itemId: Long): InformationItemDto? {
-        return informationItemDao.getItem(id = itemId)?.toDto()
+        val item = informationItemDao.getItem(id = itemId)?.toDto()
+        Log.d("KEK", "get item: $item")
+        return item
     }
 
     override fun getAll(): Flow<List<InformationItemDto>> {
-        return informationItemDao.getAllItems().map { items -> items.map { item -> item.toDto() } }
+        return informationItemDao.getAllItems()
+            .map { items -> items.map { item -> item.toDto() } }
     }
 
     private fun InformationItemDto.toEntity() = InformationItemEntity(
