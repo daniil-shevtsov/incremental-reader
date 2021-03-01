@@ -80,7 +80,7 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
     private fun handleAdapterAction(action: StructureAdapterAction) {
         when (action) {
             is StructureAdapterAction.ItemSelected -> viewModel.onItemSelected(id = action.itemId)
-            is StructureAdapterAction.LongTap -> viewModel.onItemLongTap(id = action.itemId)
+            is StructureAdapterAction.EditButtonClicked -> viewModel.onEditItem(id = action.itemId)
         }
     }
 

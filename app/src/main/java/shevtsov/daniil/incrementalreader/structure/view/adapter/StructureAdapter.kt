@@ -48,11 +48,10 @@ class StructureAdapter(private val actionCallback: StructureAdapterCallback) :
                 }
             }
 
-            binding.root.setOnLongClickListener {
+            binding.structureItemEditButton.setOnClickListener {
                 itemId?.let {
-                    actionCallback.invoke(StructureAdapterAction.LongTap(itemId = it))
+                    actionCallback.invoke(StructureAdapterAction.EditButtonClicked(itemId = it))
                 }
-                true
             }
         }
 
