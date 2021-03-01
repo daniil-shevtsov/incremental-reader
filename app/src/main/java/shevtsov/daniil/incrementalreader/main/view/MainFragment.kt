@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.R
 import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
+import shevtsov.daniil.incrementalreader.creation.navigation.CreationInitArguments
 import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding.bind
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
@@ -61,7 +62,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun openCreation() {
-        val direction = MainFragmentDirections.mainToCreation()
+        val direction =
+            MainFragmentDirections.mainToCreation(initArguments = CreationInitArguments.Create)
         findNavController().navigate(direction)
     }
 

@@ -47,6 +47,13 @@ class StructureAdapter(private val actionCallback: StructureAdapterCallback) :
                     actionCallback.invoke(StructureAdapterAction.ItemSelected(itemId = it))
                 }
             }
+
+            binding.root.setOnLongClickListener {
+                itemId?.let {
+                    actionCallback.invoke(StructureAdapterAction.LongTap(itemId = it))
+                }
+                true
+            }
         }
 
         fun bind(item: StructureInformationItem) {

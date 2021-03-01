@@ -23,7 +23,11 @@
     <fragment
         android:id="@+id/creation_fragment"
         android:name="shevtsov.daniil.incrementalreader.creation.view.CreationFragment"
-        tools:layout="@layout/fragment_creation" />
+        tools:layout="@layout/fragment_creation">
+        <argument
+            android:name="initArguments"
+            app:argType="shevtsov.daniil.incrementalreader.creation.navigation.CreationInitArguments" />
+    </fragment>
 
     <fragment
         android:id="@+id/learning_fragment"
@@ -41,6 +45,9 @@
         <action
             android:id="@+id/structure_to_learning"
             app:destination="@id/learning_fragment" />
+        <action
+            android:id="@+id/structure_to_creation"
+            app:destination="@id/creation_fragment" />
     </fragment>
 
 </navigation>

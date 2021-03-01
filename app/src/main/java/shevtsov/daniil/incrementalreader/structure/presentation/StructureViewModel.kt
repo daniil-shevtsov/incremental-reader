@@ -53,4 +53,9 @@ class StructureViewModel @Inject constructor(
         viewModelScope.launch { _events.emit(value = event) }
     }
 
+    fun onItemLongTap(id: Long) {
+        val event = StructureScreenEvent.OpenCreation(itemId = id)
+        viewModelScope.launch { _events.emit(value = event) }
+    }
+
 }
