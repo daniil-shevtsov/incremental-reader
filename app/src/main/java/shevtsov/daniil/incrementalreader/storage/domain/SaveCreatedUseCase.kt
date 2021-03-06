@@ -9,10 +9,11 @@ class SaveCreatedUseCase @Inject constructor(
 
     suspend operator fun invoke(
         itemName: String,
-        text: String
+        text: String,
+        id: Long? = null
     ) {
         val item = InformationItem(
-            id = 0L,
+            id = id,
             title = itemName,
             content = text,
             creationTime = System.currentTimeMillis(),

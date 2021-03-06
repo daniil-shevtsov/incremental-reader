@@ -1,5 +1,6 @@
 package shevtsov.daniil.incrementalreader.creation.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -47,7 +48,10 @@ class CreationViewModel @Inject constructor(
 
     fun onSaveContent() {
         viewModelScope.launch {
-//            saveCreated(itemName = currentName, text = currentText)
+            Log.d(
+                "BD_DEBUG",
+                "CreationViewMOdel save: ${currentName} with id ${currentId}"
+            )
             saveOrUpdateItem(name = currentName, content = currentText, id = currentId)
             _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
         }

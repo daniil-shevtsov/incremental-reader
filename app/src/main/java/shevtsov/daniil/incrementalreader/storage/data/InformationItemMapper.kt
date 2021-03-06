@@ -19,6 +19,7 @@ class InformationItemMapper @Inject constructor() {
 
     fun map(item: InformationItem): InformationItemEntity = with(item) {
         InformationItemEntity(
+            itemId = id ?: 0L,
             title = title,
             content = content,
             creationTime = creationTime,

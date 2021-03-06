@@ -1,5 +1,6 @@
 package shevtsov.daniil.incrementalreader.storage.domain
 
+import android.util.Log
 import javax.inject.Inject
 
 class SaveOrUpdateItemUseCase @Inject constructor(
@@ -12,8 +13,16 @@ class SaveOrUpdateItemUseCase @Inject constructor(
         id: Long? = null,
     ) {
         try {
-            saveCreated(name, content)
+            Log.d(
+                "BD_DEBUG",
+                "SaveOrUpdateItemUseCase try to dave ${name} by id $id"
+            )
+            saveCreated(name, content, id)
         } catch (e: Exception) {
+            Log.d(
+                "BD_DEBUG",
+                "SaveOrUpdateItemUseCase could not save ${name}, try to update"
+            )
             if(id != null) {
                 val item = repository.getItem(id)
                 if(item != null) {

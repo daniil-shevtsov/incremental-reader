@@ -10,7 +10,7 @@ interface InformationItemDao {
     fun getAllItems(): Flow<List<InformationItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insert(entity: InformationItemEntity)
+    suspend fun insert(entity: InformationItemEntity): Long
 
     @Update
     suspend fun update(entity: InformationItemEntity)

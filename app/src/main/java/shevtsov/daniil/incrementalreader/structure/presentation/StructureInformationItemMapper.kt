@@ -8,7 +8,7 @@ class StructureInformationItemMapper @Inject constructor() {
 
     fun map(informationItem: InformationItem): StructureInformationItem = with(informationItem) {
         StructureInformationItem(
-            id = id,
+            id = id!!,
             title = title
         )
     }
