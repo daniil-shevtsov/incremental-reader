@@ -7,9 +7,9 @@ class SaveOrUpdateItemUseCase @Inject constructor(
     private val repository: TextStorageRepository
 ) {
     suspend operator fun invoke(
+        id: Long?,
         name: String,
         content: String,
-        id: Long? = null,
     ) {
         val item = id?.let { repository.getItem(id) }
 

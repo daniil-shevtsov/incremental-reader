@@ -22,14 +22,12 @@ class TextStorageRepositoryImpl @Inject constructor(
 
     override fun getItems(): Flow<List<InformationItem>> {
         return databaseStorage.getAll().map { items ->
-            items.map { item ->
-                mapper.map(item)
-            }
+            items.map(mapper::map)
         }
     }
 
     override suspend fun getItem(itemId: Long): InformationItem? {
-        return databaseStorage.get(itemId = itemId)?.let { item -> mapper.map(item) }
+        return databaseStorage.get(itemId = itemId)?.let(mapper::map)
     }
 
 }

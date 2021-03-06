@@ -45,7 +45,7 @@ class CreationViewModel @Inject constructor(
 
     fun onSaveContent() {
         viewModelScope.launch {
-            saveOrUpdateItem(name = currentName, content = currentText, id = currentId)
+            saveOrUpdateItem(id = currentId, name = currentName, content = currentText)
             _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
         }
     }

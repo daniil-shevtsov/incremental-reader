@@ -33,7 +33,9 @@ class StructureViewModel @Inject constructor(
     private fun loadItems() {
         viewModelScope.launch {
             getInformationItems()
-                .map { list -> list.map(structureInformationItemMapper::map) }
+                .map { list ->
+                    list.filter { it.id != null }.map(structureInformationItemMapper::map)
+                }
                 .collect { items ->
                     val newState =
                         StructureViewState(
