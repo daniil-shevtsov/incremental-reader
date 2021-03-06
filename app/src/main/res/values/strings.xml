@@ -5,6 +5,7 @@
     <string name="main_fragment_structure_button_title">Structure</string>
     <string name="main_fragment_creation_button_title">Creation</string>
     <string name="main_fragment_learning_button_title">Learning</string>
+    <string name="main_fragment_show_database_button_title">Show Database</string>
 
     <string name="creation_screen_create_button_title">Create</string>
     <string name="creation_screen_title">Creation</string>
