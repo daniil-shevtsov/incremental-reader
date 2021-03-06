@@ -1,10 +1,9 @@
 package shevtsov.daniil.incrementalreader.storage.domain
 
-import android.util.Log
+import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 import javax.inject.Inject
 
 class SaveOrUpdateItemUseCase @Inject constructor(
-    private val saveCreated: SaveCreatedUseCase,
     private val repository: TextStorageRepository
 ) {
     suspend operator fun invoke(
@@ -12,23 +11,27 @@ class SaveOrUpdateItemUseCase @Inject constructor(
         content: String,
         id: Long? = null,
     ) {
-        try {
-            Log.d(
-                "BD_DEBUG",
-                "SaveOrUpdateItemUseCase try to dave ${name} by id $id"
+        val item = id?.let { repository.getItem(id) }
+
+        if (item != null) {
+            repository.update(
+                item.copy(
+                    title = name,
+                    content = content
+                )
             )
-            saveCreated(name, content, id)
-        } catch (e: Exception) {
-            Log.d(
-                "BD_DEBUG",
-                "SaveOrUpdateItemUseCase could not save ${name}, try to update"
+        } else {
+            repository.saveText(
+                item = InformationItem(
+                    id = id,
+                    title = name,
+                    content = content,
+                    creationTime = System.currentTimeMillis(),
+                    updateTime = 0L,
+                    lastRepetitionTime = 0L,
+                    parentId = null
+                )
             )
-            if(id != null) {
-                val item = repository.getItem(id)
-                if(item != null) {
-                    repository.update(item.copy(title = name, content = content))
-                }
-            }
         }
     }
 }
