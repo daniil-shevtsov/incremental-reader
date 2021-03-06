@@ -9,10 +9,12 @@ import shevtsov.daniil.incrementalreader.core.util.toImmutable
 import shevtsov.daniil.incrementalreader.creation.navigation.CreationInitArguments
 import shevtsov.daniil.incrementalreader.storage.domain.GetSavedItemUseCase
 import shevtsov.daniil.incrementalreader.storage.domain.SaveCreatedUseCase
+import shevtsov.daniil.incrementalreader.storage.domain.SaveOrUpdateItemUseCase
 import javax.inject.Inject
 
 class CreationViewModel @Inject constructor(
     private val saveCreated: SaveCreatedUseCase,
+    private val saveOrUpdateItem: SaveOrUpdateItemUseCase,
     private val getSavedItem: GetSavedItemUseCase,
 ) : ViewModel() {
 
@@ -25,6 +27,8 @@ class CreationViewModel @Inject constructor(
 
     private var currentName: String = ""
     private var currentText: String = ""
+
+    private var currentId: Long? = null
 
     fun onArguments(arguments: CreationInitArguments) {
         when (arguments) {
@@ -43,12 +47,15 @@ class CreationViewModel @Inject constructor(
 
     fun onSaveContent() {
         viewModelScope.launch {
-            saveCreated(itemName = currentName, text = currentText)
+//            saveCreated(itemName = currentName, text = currentText)
+            saveOrUpdateItem(name = currentName, content = currentText, id = currentId)
             _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
         }
     }
 
     private fun fillItemData(itemId: Long) {
+        currentId = itemId
+
         viewModelScope.launch {
             val item = getSavedItem(itemId)
             if (item != null) {
