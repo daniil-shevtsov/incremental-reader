@@ -18,7 +18,7 @@ class SaveCreatedUseCase @Inject constructor(
             content = text,
             creationTime = System.currentTimeMillis(),
             updateTime = 0L,
-            lastRepetitionTime = 0L,
+            lastReviewTime = 0L,
             parentId = null
         )
         textStorageRepository.saveText(item)

@@ -29,7 +29,6 @@ class LearningViewModel @Inject constructor(
             is LearningInitArguments.Empty -> handleEmpty()
             is LearningInitArguments.SelectedItem -> handleSelectedItem(id = arguments.itemId)
         }
-
     }
 
     private fun handleEmpty() {

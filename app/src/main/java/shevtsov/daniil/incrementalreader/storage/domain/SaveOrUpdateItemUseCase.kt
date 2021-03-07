@@ -28,7 +28,7 @@ class SaveOrUpdateItemUseCase @Inject constructor(
                     content = content,
                     creationTime = System.currentTimeMillis(),
                     updateTime = 0L,
-                    lastRepetitionTime = 0L,
+                    lastReviewTime = 0L,
                     parentId = null
                 )
             )

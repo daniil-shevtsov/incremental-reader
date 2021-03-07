@@ -12,7 +12,7 @@ class InformationItemMapper @Inject constructor() {
             content = content,
             creationTime = creationTime,
             updateTime = updateTime,
-            lastRepetitionTime = lastRepetitionTime,
+            lastReviewTime = lastReviewTime,
             parentId = parentId,
         )
     }
@@ -24,7 +24,7 @@ class InformationItemMapper @Inject constructor() {
             content = content,
             creationTime = creationTime,
             updateTime = updateTime,
-            lastRepetitionTime = lastRepetitionTime,
+            lastReviewTime = lastReviewTime,
             parentId = parentId,
         )
     }

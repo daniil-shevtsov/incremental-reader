@@ -17,7 +17,7 @@ data class InformationItemEntity(
 
     @ColumnInfo(name = "update_time") val updateTime: Long,
 
-    @ColumnInfo(name = "repetition_time") val lastRepetitionTime: Long,
+    @ColumnInfo(name = "review_time") val lastReviewTime: Long,
 
     @ColumnInfo(name = "parent_id") val parentId: Long? = null,
 )

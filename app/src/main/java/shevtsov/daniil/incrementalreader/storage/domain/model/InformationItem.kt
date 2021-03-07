@@ -6,6 +6,6 @@ data class InformationItem(
     val content: String,
     val creationTime: Long,
     val updateTime: Long,
-    val lastRepetitionTime: Long,
+    val lastReviewTime: Long,
     val parentId: Long?,
 )
