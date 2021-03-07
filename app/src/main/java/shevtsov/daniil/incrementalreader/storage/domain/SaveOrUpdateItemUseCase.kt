@@ -10,6 +10,7 @@ class SaveOrUpdateItemUseCase @Inject constructor(
         id: Long?,
         name: String,
         content: String,
+        parentId: Long?,
     ) {
         val item = id?.let { repository.getItem(id) }
 
@@ -29,7 +30,7 @@ class SaveOrUpdateItemUseCase @Inject constructor(
                     creationTime = System.currentTimeMillis(),
                     updateTime = 0L,
                     lastReviewTime = 0L,
-                    parentId = null
+                    parentId = parentId
                 )
             )
         }

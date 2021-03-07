@@ -2,6 +2,9 @@ package shevtsov.daniil.incrementalreader.creation.view
 
 import android.content.Context
 import android.os.Bundle
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
@@ -53,6 +56,34 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
 
         viewModel.onArguments(arguments = args.initArguments)
 
+        binding.creationItemContentEditText.apply {
+            customSelectionActionModeCallback =
+                object : ActionMode.Callback {
+                    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                        requireActivity().menuInflater.inflate(R.menu.creation_share_menu, menu)
+                        return true
+                    }
+
+                    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                        return false
+                    }
+
+                    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                        return when (item?.itemId) {
+                            R.id.item_create_chunk -> {
+                                viewModel.onCreateChunk(getSelectedText())
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+
+                    override fun onDestroyActionMode(mode: ActionMode?) {
+
+                    }
+                }
+        }
+
     }
 
     private fun renderState(state: CreationViewState) {
@@ -91,6 +122,13 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
         doAfterTextChanged { editable ->
             textEnteredAction.invoke(editable.toString())
         }
+    }
+
+    private fun EditText.getSelectedText(): String {
+        val startSelection = selectionStart
+        val endSelection = selectionEnd
+
+        return text.toString().substring(startSelection, endSelection)
     }
 
 }

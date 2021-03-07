@@ -44,8 +44,21 @@ class CreationViewModel @Inject constructor(
     }
 
     fun onSaveContent() {
+        saveContent(
+            id = currentId,
+            name = currentName,
+            content = currentText,
+        )
+    }
+
+    private fun saveContent(
+        id: Long?,
+        name: String,
+        content: String,
+        parentId: Long? = null
+    ) {
         viewModelScope.launch {
-            saveOrUpdateItem(id = currentId, name = currentName, content = currentText)
+            saveOrUpdateItem(id = id, name = name, content = content, parentId = parentId)
             _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
         }
     }
@@ -67,5 +80,14 @@ class CreationViewModel @Inject constructor(
         title = "",
         content = "",
     )
+
+    fun onCreateChunk(selectedText: String) {
+        saveContent(
+            id = null,
+            name = "$currentName: ${selectedText.substringBefore(" ")}",
+            content = selectedText,
+            parentId = currentId
+        )
+    }
 
 }
