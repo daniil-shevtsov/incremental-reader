@@ -20,6 +20,7 @@ import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
 import shevtsov.daniil.incrementalreader.databinding.FragmentLearningBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentLearningBinding.bind
 import shevtsov.daniil.incrementalreader.learning.presentation.LearningScreenEvent
+import shevtsov.daniil.incrementalreader.learning.presentation.LearningViewAction
 import shevtsov.daniil.incrementalreader.learning.presentation.LearningViewModel
 import shevtsov.daniil.incrementalreader.learning.presentation.LearningViewState
 import javax.inject.Inject
@@ -35,7 +36,11 @@ class LearningFragment : Fragment(R.layout.fragment_learning) {
 
     private val viewModel: LearningViewModel by viewModels { viewModelFactory }
 
-    private val adapter = GroupieAdapter()
+    private val adapter = GroupieAdapter().apply {
+        setOnItemClickListener { item, _ ->
+            viewModel.onAction(LearningViewAction.SelectScore(item.id))
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,7 +62,7 @@ class LearningFragment : Fragment(R.layout.fragment_learning) {
             viewModel.events.collect { event -> handleEvent(event = event) }
         }
 
-        viewModel.onArguments(arguments = args.initArguments)
+        viewModel.onAction(LearningViewAction.ProvideArguments(args.initArguments))
     }
 
     private fun renderState(state: LearningViewState) {
@@ -97,10 +102,11 @@ class LearningFragment : Fragment(R.layout.fragment_learning) {
 
     private fun FragmentLearningBinding.initViews() {
         scoreRecyclerView.adapter = adapter
-        scoreRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        scoreRecyclerView.layoutManager =
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
         showAnswerButton.setOnClickListener {
-            viewModel.showAnswer()
+            viewModel.onAction(LearningViewAction.ShowAnswer)
         }
     }
 

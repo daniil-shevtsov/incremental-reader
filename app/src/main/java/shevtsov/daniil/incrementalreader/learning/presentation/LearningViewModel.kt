@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.core.util.toImmutable
+import shevtsov.daniil.incrementalreader.learning.domain.AddRepetitionUseCase
+import shevtsov.daniil.incrementalreader.learning.domain.GetScoreListUseCase
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
 import shevtsov.daniil.incrementalreader.learning.usecase.GetCalculatedItemUseCase
 import shevtsov.daniil.incrementalreader.storage.domain.GetSavedItemUseCase
@@ -14,8 +16,10 @@ import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 import javax.inject.Inject
 
 class LearningViewModel @Inject constructor(
+    private val getScoreList: GetScoreListUseCase,
     private val getCalculatedItem: GetCalculatedItemUseCase,
     private val getSavedItem: GetSavedItemUseCase,
+    private val addRepetition: AddRepetitionUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<LearningViewState>(value = createInitialState())
@@ -24,16 +28,30 @@ class LearningViewModel @Inject constructor(
     private val _events = MutableSharedFlow<LearningScreenEvent>()
     val events = _events.toImmutable()
 
-    fun onArguments(arguments: LearningInitArguments) {
+    // Remove side effects
+    private val scoreList = getScoreList()
+    private var selectedItem: InformationItem? = null
+
+    fun onAction(action: LearningViewAction) {
+        when (action) {
+            is LearningViewAction.ProvideArguments -> onArguments(action.arguments)
+            is LearningViewAction.ShowAnswer -> showAnswer()
+            is LearningViewAction.SelectScore -> selectedScore(action.scoreId)
+        }
+    }
+
+    private fun onArguments(arguments: LearningInitArguments) {
         when (arguments) {
             is LearningInitArguments.Empty -> handleEmpty()
             is LearningInitArguments.SelectedItem -> handleSelectedItem(id = arguments.itemId)
         }
     }
 
-    fun showAnswer() {
-        viewModelScope.launch {
-            getCalculatedItem.invoke().collect { item ->
+    private fun showAnswer() {
+        val item = selectedItem
+
+        if (item != null) {
+            viewModelScope.launch {
                 showFull(item)
             }
         }
@@ -42,6 +60,7 @@ class LearningViewModel @Inject constructor(
     private fun handleEmpty() {
         viewModelScope.launch {
             getCalculatedItem.invoke().collect { item ->
+                selectedItem = item
                 showQuestion(item)
             }
         }
@@ -50,8 +69,19 @@ class LearningViewModel @Inject constructor(
     private fun handleSelectedItem(id: Long) {
         viewModelScope.launch {
             val item = getSavedItem.invoke(itemId = id)
+            selectedItem = item
             showQuestion(item)
         }
+    }
+
+    private fun selectedScore(scoreId: Long) {
+        val item = selectedItem
+        val score = scoreList.find { it.id == scoreId }
+
+        if (item != null && score != null) {
+            addRepetition(item = item, score = score)
+        }
+
     }
 
     private suspend fun showQuestion(item: InformationItem?) {
@@ -61,7 +91,6 @@ class LearningViewModel @Inject constructor(
             )
             _state.emit(value = state)
         }
-
     }
 
     private suspend fun showFull(item: InformationItem?) {
@@ -69,7 +98,7 @@ class LearningViewModel @Inject constructor(
             val state = LearningViewState.AnswerShown(
                 itemName = item.title,
                 itemContent = item.content,
-                scoreList = (0..5).map { ScoreItem(it.toLong(), it.toString()) }
+                scoreList = scoreList.map { ScoreItem(id = it.id, value = it.value.toString()) }
             )
             _state.emit(value = state)
         }
