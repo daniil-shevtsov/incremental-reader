@@ -55,19 +55,24 @@ class LearningViewModel @Inject constructor(
     }
 
     private suspend fun showQuestion(item: InformationItem?) {
-        val state = LearningViewState.QuestionOnly(
-            itemName = "Вопрос"
-        )
-        _state.emit(value = state)
+        if (item != null) {
+            val state = LearningViewState.QuestionOnly(
+                itemName = item.title
+            )
+            _state.emit(value = state)
+        }
+
     }
 
     private suspend fun showFull(item: InformationItem?) {
-        val state = LearningViewState.AnswerShown(
-            itemName = "Вопрос",
-            itemContent = "Ответ",
-            scoreList = (0..5).map { ScoreItem(it.toLong(), it.toString()) }
-        )
-        _state.emit(value = state)
+        if (item != null) {
+            val state = LearningViewState.AnswerShown(
+                itemName = item.title,
+                itemContent = item.content,
+                scoreList = (0..5).map { ScoreItem(it.toLong(), it.toString()) }
+            )
+            _state.emit(value = state)
+        }
     }
 
     private fun createInitialState(): LearningViewState {
