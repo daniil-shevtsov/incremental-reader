@@ -31,10 +31,18 @@ class LearningViewModel @Inject constructor(
         }
     }
 
+    fun showAnswer() {
+        viewModelScope.launch {
+            getCalculatedItem.invoke().collect { item ->
+                showFull(item)
+            }
+        }
+    }
+
     private fun handleEmpty() {
         viewModelScope.launch {
             getCalculatedItem.invoke().collect { item ->
-                showItem(item)
+                showQuestion(item)
             }
         }
     }
@@ -42,25 +50,29 @@ class LearningViewModel @Inject constructor(
     private fun handleSelectedItem(id: Long) {
         viewModelScope.launch {
             val item = getSavedItem.invoke(itemId = id)
-            showItem(item)
+            showQuestion(item)
         }
     }
 
-    private suspend fun showItem(item: InformationItem?) {
-        if (item != null) {
-            val state = LearningViewState(
-                itemName = item.title,
-                itemContent = item.content
-            )
+    private suspend fun showQuestion(item: InformationItem?) {
+        val state = LearningViewState.QuestionOnly(
+            itemName = "Вопрос"
+        )
+        _state.emit(value = state)
+    }
 
-            _state.emit(value = state)
-        }
+    private suspend fun showFull(item: InformationItem?) {
+        val state = LearningViewState.AnswerShown(
+            itemName = "Вопрос",
+            itemContent = "Ответ",
+            scoreList = (0..5).map { ScoreItem(it.toLong(), it.toString()) }
+        )
+        _state.emit(value = state)
     }
 
     private fun createInitialState(): LearningViewState {
-        return LearningViewState(
+        return LearningViewState.QuestionOnly(
             itemName = "",
-            itemContent = ""
         )
     }
 
