@@ -1,5 +1,6 @@
 package shevtsov.daniil.incrementalreader.storage.domain
 
+import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 import javax.inject.Inject
 
 class SaveCreatedUseCase @Inject constructor(
@@ -8,12 +9,19 @@ class SaveCreatedUseCase @Inject constructor(
 
     suspend operator fun invoke(
         itemName: String,
-        text: String
+        text: String,
+        id: Long? = null
     ) {
-        textStorageRepository.saveText(
-            itemName = itemName,
-            text = text
+        val item = InformationItem(
+            id = id,
+            title = itemName,
+            content = text,
+            creationTime = System.currentTimeMillis(),
+            updateTime = 0L,
+            lastReviewTime = 0L,
+            parentId = null
         )
+        textStorageRepository.saveText(item)
     }
 
 }

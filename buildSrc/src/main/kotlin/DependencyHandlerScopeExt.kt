@@ -88,6 +88,7 @@ fun DependencyHandlerScope.database() {
 }
 
 fun DependencyHandlerScope.misc() {
+    debugImplementation("com.wajahatkarim3:roomexplorer:0.0.2")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY}")
 }
 

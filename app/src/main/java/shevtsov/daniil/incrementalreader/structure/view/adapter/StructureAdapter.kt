@@ -47,6 +47,12 @@ class StructureAdapter(private val actionCallback: StructureAdapterCallback) :
                     actionCallback.invoke(StructureAdapterAction.ItemSelected(itemId = it))
                 }
             }
+
+            binding.structureItemEditButton.setOnClickListener {
+                itemId?.let {
+                    actionCallback.invoke(StructureAdapterAction.EditButtonClicked(itemId = it))
+                }
+            }
         }
 
         fun bind(item: StructureInformationItem) {

@@ -6,6 +6,21 @@
     android:background="@color/commonBackground">
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/show_database_button"
+        style="@style/CommonButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        android:backgroundTint="#FFFF00"
+        android:text="@string/main_fragment_show_database_button_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/open_structure_button"
         style="@style/CommonButton"
         android:layout_width="0dp"
@@ -16,7 +31,7 @@
         android:text="@string/main_fragment_structure_button_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/show_database_button" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/open_creation_button"

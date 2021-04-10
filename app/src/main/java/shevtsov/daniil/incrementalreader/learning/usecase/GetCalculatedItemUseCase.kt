@@ -2,7 +2,7 @@ package shevtsov.daniil.incrementalreader.learning.usecase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import shevtsov.daniil.incrementalreader.storage.domain.InformationItem
+import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 import shevtsov.daniil.incrementalreader.structure.domain.GetInformationItemsUseCase
 import javax.inject.Inject
 
@@ -11,6 +11,6 @@ class GetCalculatedItemUseCase @Inject constructor(
 ) {
 
     operator fun invoke(): Flow<InformationItem?> = getInformationItemsUseCase.invoke()
-        .map { items -> items.maxByOrNull { item -> item.name } }
+        .map { items -> items.maxByOrNull { item -> item.title } }
 
 }

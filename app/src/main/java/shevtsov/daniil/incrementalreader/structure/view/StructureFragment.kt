@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.R
 import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
+import shevtsov.daniil.incrementalreader.creation.navigation.CreationInitArguments
 import shevtsov.daniil.incrementalreader.databinding.FragmentStructureBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentStructureBinding.bind
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
@@ -58,7 +59,7 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
     }
 
     private fun renderState(state: StructureViewState) {
-        when(state.contentViewState) {
+        when (state.contentViewState) {
             is StructureContentViewState.Loading -> {
 
             }
@@ -72,18 +73,26 @@ class StructureFragment : Fragment(R.layout.fragment_structure) {
     private fun handleEvent(event: StructureScreenEvent) {
         when (event) {
             is StructureScreenEvent.OpenLearning -> openLearning(itemId = event.itemId)
+            is StructureScreenEvent.OpenCreation -> openCreation(itemId = event.itemId)
         }
     }
 
     private fun handleAdapterAction(action: StructureAdapterAction) {
         when (action) {
             is StructureAdapterAction.ItemSelected -> viewModel.onItemSelected(id = action.itemId)
+            is StructureAdapterAction.EditButtonClicked -> viewModel.onEditItem(id = action.itemId)
         }
     }
 
     private fun openLearning(itemId: Long) {
         val arguments = LearningInitArguments.SelectedItem(itemId = itemId)
         val direction = StructureFragmentDirections.structureToLearning(initArguments = arguments)
+        findNavController().navigate(direction)
+    }
+
+    private fun openCreation(itemId: Long) {
+        val arguments = CreationInitArguments.Edit(itemId = itemId)
+        val direction = StructureFragmentDirections.structureToCreation(initArguments = arguments)
         findNavController().navigate(direction)
     }
 

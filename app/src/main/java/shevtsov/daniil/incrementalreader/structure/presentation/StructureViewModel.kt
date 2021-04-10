@@ -33,7 +33,9 @@ class StructureViewModel @Inject constructor(
     private fun loadItems() {
         viewModelScope.launch {
             getInformationItems()
-                .map { list -> list.map(structureInformationItemMapper::map) }
+                .map { list ->
+                    list.filter { it.id != null }.map(structureInformationItemMapper::map)
+                }
                 .collect { items ->
                     val newState =
                         StructureViewState(
@@ -50,6 +52,11 @@ class StructureViewModel @Inject constructor(
 
     fun onItemSelected(id: Long) {
         val event = StructureScreenEvent.OpenLearning(itemId = id)
+        viewModelScope.launch { _events.emit(value = event) }
+    }
+
+    fun onEditItem(id: Long) {
+        val event = StructureScreenEvent.OpenCreation(itemId = id)
         viewModelScope.launch { _events.emit(value = event) }
     }
 

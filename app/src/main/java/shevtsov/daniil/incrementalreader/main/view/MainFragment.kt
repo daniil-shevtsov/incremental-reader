@@ -3,16 +3,21 @@ package shevtsov.daniil.incrementalreader.main.view
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.wajahatkarim3.roomexplorer.RoomExplorer
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import shevtsov.daniil.incrementalreader.BuildConfig
 import shevtsov.daniil.incrementalreader.R
 import shevtsov.daniil.incrementalreader.core.IncrementalReaderApplication
+import shevtsov.daniil.incrementalreader.core.storage.room.InformationItemDatabase
 import shevtsov.daniil.incrementalreader.core.util.viewLifecycleLazy
+import shevtsov.daniil.incrementalreader.creation.navigation.CreationInitArguments
 import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding
 import shevtsov.daniil.incrementalreader.databinding.FragmentMainBinding.bind
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
@@ -40,6 +45,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.initViews()
 
+        if (BuildConfig.DEBUG) {
+            binding.showDatabaseButton.apply {
+                isVisible = true
+                setOnClickListener {
+                    RoomExplorer.show(context, InformationItemDatabase::class.java, "information_item_database")
+                }
+            }
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.events.collect { event -> handleEvent(event) }
         }
@@ -61,7 +75,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun openCreation() {
-        val direction = MainFragmentDirections.mainToCreation()
+        val direction =
+            MainFragmentDirections.mainToCreation(initArguments = CreationInitArguments.Create)
         findNavController().navigate(direction)
     }
 
