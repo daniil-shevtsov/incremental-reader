@@ -3,6 +3,8 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 fun DependencyHandlerScope.appDependencies() {
     android()
 
+    recyclerView()
+
     coroutines()
 
     navigation()
@@ -16,6 +18,11 @@ fun DependencyHandlerScope.appDependencies() {
     database()
 
     misc()
+}
+
+private fun DependencyHandlerScope.recyclerView() {
+    implementation ("com.xwray:groupie:${Version.GROUPIE}")
+    implementation ("com.xwray:groupie-viewbinding:${Version.GROUPIE}")
 }
 
 fun DependencyHandlerScope.coroutines() {

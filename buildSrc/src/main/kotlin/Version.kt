@@ -7,6 +7,8 @@ object Version {
     const val LIFECYCLE = "2.2.0"
     const val NAVIGATION = "2.3.2"
 
+    const val GROUPIE = "2.9.0"
+
     const val RETROFIT = "2.8.1"
     const val OK_HTTP = "4.7.2"
     const val GSON = "2.8.5"
