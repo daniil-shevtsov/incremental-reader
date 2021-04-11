@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id(Plugin.ANDROID_APP)
 
@@ -62,7 +60,7 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(kotlin("stdlib-jdk7", "1.4.20"))
+    implementation(kotlin("stdlib-jdk7", "1.4.31"))
 
     appDependencies()
 

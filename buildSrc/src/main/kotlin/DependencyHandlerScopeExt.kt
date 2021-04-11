@@ -17,7 +17,13 @@ fun DependencyHandlerScope.appDependencies() {
 
     database()
 
+    unitTest()
+
     misc()
+}
+
+private fun DependencyHandlerScope.unitTest() {
+    testImplementation("app.cash.turbine:turbine:${Version.TURBINE}")
 }
 
 private fun DependencyHandlerScope.recyclerView() {

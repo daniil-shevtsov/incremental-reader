@@ -1,18 +1,20 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0-alpha09")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20")
+        classpath("com.android.tools.build:gradle:7.0.0-alpha14")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31")
 
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
     }
 }
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
         google()
     }
 

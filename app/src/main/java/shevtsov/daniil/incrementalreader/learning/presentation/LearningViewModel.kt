@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.core.util.toImmutable
 import shevtsov.daniil.incrementalreader.learning.domain.AddRepetitionUseCase
 import shevtsov.daniil.incrementalreader.learning.domain.GetScoreListUseCase
+import shevtsov.daniil.incrementalreader.learning.domain.Score
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
 import shevtsov.daniil.incrementalreader.learning.usecase.GetCalculatedItemUseCase
 import shevtsov.daniil.incrementalreader.storage.domain.GetSavedItemUseCase
@@ -98,7 +99,7 @@ class LearningViewModel @Inject constructor(
             val state = LearningViewState.AnswerShown(
                 itemName = item.title,
                 itemContent = item.content,
-                scoreList = scoreList.map { ScoreItem(id = it.id, value = it.value.toString()) }
+                scoreList = scoreList.map { it.toItem() }
             )
             _state.emit(value = state)
         }
@@ -109,5 +110,10 @@ class LearningViewModel @Inject constructor(
             itemName = "",
         )
     }
+
+    private fun Score.toItem() = ScoreItem(
+        id = id,
+        value = value.toString()
+    )
 
 }
