@@ -17,13 +17,7 @@ fun DependencyHandlerScope.appDependencies() {
 
     database()
 
-    unitTest()
-
     misc()
-}
-
-private fun DependencyHandlerScope.unitTest() {
-    testImplementation("app.cash.turbine:turbine:${Version.TURBINE}")
 }
 
 private fun DependencyHandlerScope.recyclerView() {
@@ -32,7 +26,7 @@ private fun DependencyHandlerScope.recyclerView() {
 }
 
 fun DependencyHandlerScope.coroutines() {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.COROUTINES}")
 }
 
 fun DependencyHandlerScope.unitTestDependencies() {
@@ -43,6 +37,9 @@ fun DependencyHandlerScope.unitTestDependencies() {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.JUPITER}")
     testImplementation("org.junit.jupiter:junit-jupiter-params:${Version.JUPITER}")
     testImplementation("io.mockk:mockk:${Version.MOCKK}")
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.COROUTINES}")
+    testImplementation("app.cash.turbine:turbine:${Version.TURBINE}")
 }
 
 fun DependencyHandlerScope.instrumentationTestDependencies() {
