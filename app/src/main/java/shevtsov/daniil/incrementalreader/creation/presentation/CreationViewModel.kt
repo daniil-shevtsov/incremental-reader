@@ -90,4 +90,13 @@ class CreationViewModel @Inject constructor(
         )
     }
 
+    fun onCreateCloze(selectedText: String) {
+        saveContent(
+            id = null,
+            name = currentText.replaceFirst(selectedText, "_".repeat(selectedText.length)),
+            content = currentText,
+            parentId = currentId
+        )
+    }
+
 }

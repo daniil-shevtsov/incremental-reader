@@ -74,6 +74,10 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
                                 viewModel.onCreateChunk(getSelectedText())
                                 true
                             }
+                            R.id.item_create_cloze -> {
+                                viewModel.onCreateCloze(getSelectedText())
+                                true
+                            }
                             else -> false
                         }
                     }
