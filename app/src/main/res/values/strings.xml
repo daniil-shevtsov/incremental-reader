@@ -9,6 +9,10 @@
 
     <string name="creation_screen_create_button_title">Create</string>
     <string name="creation_screen_title">Creation</string>
+
     <string name="item_created_message">Item %s saved</string>
+    <string name="chunk_created_message">Chunk created</string>
+    <string name="cloze_created_message">Cloze created</string>
+
 
 </resources>

@@ -106,12 +106,24 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
     private fun handleEvent(event: CreationScreenEvent) {
         when (event) {
             is CreationScreenEvent.ShowItemSaved -> showItemSavedToast(itemName = event.itemName)
+            is CreationScreenEvent.ShowChunkCreated -> showChunkCreatedToast()
+            is CreationScreenEvent.ShowClozeCreated -> showClozeCreatedToast()
         }
     }
 
     private fun showItemSavedToast(itemName: String) {
         Log.d("KEK", "show message that $itemName created")
         val message = getString(R.string.item_created_message, itemName)
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showChunkCreatedToast() {
+        val message = getString(R.string.chunk_created_message)
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showClozeCreatedToast() {
+        val message = getString(R.string.cloze_created_message)
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 

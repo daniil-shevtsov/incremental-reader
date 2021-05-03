@@ -1,6 +1,5 @@
 package shevtsov.daniil.incrementalreader.creation.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -46,29 +45,13 @@ class CreationViewModel @Inject constructor(
     }
 
     fun onSaveContent() {
-        saveContent(
-            id = currentId,
-            name = currentName,
-            content = currentText,
-        )
-    }
-
-    private fun saveContent(
-        id: Long?,
-        name: String,
-        content: String,
-        parentId: Long? = null
-    ) {
         viewModelScope.launch {
-            Log.d("KEK", "Before save")
-            try {
-                saveOrUpdateItem(id = id, name = name, content = content, parentId = parentId)
-                Log.d("KEK", "After save")
-                _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
-            } catch (e: Exception) {
-                Log.e("KEK", "error:${e.message}")
-            }
-
+            saveContent(
+                id = currentId,
+                name = currentName,
+                content = currentText,
+            )
+            _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
         }
     }
 
@@ -91,21 +74,36 @@ class CreationViewModel @Inject constructor(
     )
 
     fun onCreateChunk(selectedText: String) {
-        saveContent(
-            id = null,
-            name = "$currentName: ${selectedText.substringBefore(" ")}",
-            content = selectedText,
-            parentId = currentId
-        )
+        viewModelScope.launch {
+            saveContent(
+                id = null,
+                name = "$currentName: ${selectedText.substringBefore(" ")}",
+                content = selectedText,
+                parentId = currentId
+            )
+            _events.emit(CreationScreenEvent.ShowChunkCreated)
+        }
     }
 
     fun onCreateCloze(selectedText: String) {
-        saveContent(
-            id = null,
-            name = currentText.replaceFirst(selectedText, "_".repeat(selectedText.length)),
-            content = currentText,
-            parentId = currentId
-        )
+        viewModelScope.launch {
+            saveContent(
+                id = null,
+                name = currentText.replaceFirst(selectedText, "_".repeat(selectedText.length)),
+                content = currentText,
+                parentId = currentId
+            )
+            _events.emit(CreationScreenEvent.ShowClozeCreated)
+        }
+    }
+
+    private suspend fun saveContent(
+        id: Long?,
+        name: String,
+        content: String,
+        parentId: Long? = null
+    ) {
+        saveOrUpdateItem(id = id, name = name, content = content, parentId = parentId)
     }
 
 }
