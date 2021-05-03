@@ -1,11 +1,13 @@
 package shevtsov.daniil.incrementalreader.creation.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import shevtsov.daniil.incrementalreader.core.util.toImmutable
 import shevtsov.daniil.incrementalreader.creation.navigation.CreationInitArguments
 import shevtsov.daniil.incrementalreader.storage.domain.GetSavedItemUseCase
 import shevtsov.daniil.incrementalreader.storage.domain.SaveOrUpdateItemUseCase
@@ -18,10 +20,10 @@ class CreationViewModel @Inject constructor(
 
     private val _state = MutableStateFlow<CreationViewState>(value = createInitialState())
 
-    val state = _state.toImmutable()
+    val state = _state.asStateFlow()
 
-    private val _events = MutableSharedFlow<CreationScreenEvent>()
-    val events = _events.toImmutable()
+    private val _events = MutableSharedFlow<CreationScreenEvent>(replay = 0)
+    val events = _events.asSharedFlow()
 
     private var currentName: String = ""
     private var currentText: String = ""
@@ -58,8 +60,15 @@ class CreationViewModel @Inject constructor(
         parentId: Long? = null
     ) {
         viewModelScope.launch {
-            saveOrUpdateItem(id = id, name = name, content = content, parentId = parentId)
-            _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
+            Log.d("KEK", "Before save")
+            try {
+                saveOrUpdateItem(id = id, name = name, content = content, parentId = parentId)
+                Log.d("KEK", "After save")
+                _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
+            } catch (e: Exception) {
+                Log.e("KEK", "error:${e.message}")
+            }
+
         }
     }
 

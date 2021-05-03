@@ -2,6 +2,7 @@ package shevtsov.daniil.incrementalreader.creation.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
@@ -50,7 +51,12 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
         binding.initViews()
 
         viewLifecycleOwner.lifecycleScope.launch {
+            Log.d("KEK", "observe state")
             viewModel.state.collect { state -> renderState(state) }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            Log.d("KEK", "observe events")
             viewModel.events.collect { event -> handleEvent(event) }
         }
 
@@ -104,6 +110,7 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
     }
 
     private fun showItemSavedToast(itemName: String) {
+        Log.d("KEK", "show message that $itemName created")
         val message = getString(R.string.item_created_message, itemName)
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
