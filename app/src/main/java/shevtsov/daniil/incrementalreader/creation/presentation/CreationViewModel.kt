@@ -2,11 +2,9 @@ package shevtsov.daniil.incrementalreader.creation.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import shevtsov.daniil.incrementalreader.creation.KekGarbageRepository
 import shevtsov.daniil.incrementalreader.creation.navigation.CreationInitArguments
 import shevtsov.daniil.incrementalreader.storage.domain.GetSavedItemUseCase
 import shevtsov.daniil.incrementalreader.storage.domain.SaveOrUpdateItemUseCase
@@ -15,6 +13,7 @@ import javax.inject.Inject
 class CreationViewModel @Inject constructor(
     private val saveOrUpdateItem: SaveOrUpdateItemUseCase,
     private val getSavedItem: GetSavedItemUseCase,
+    private val kekGarbageRepository: KekGarbageRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CreationViewState>(value = createInitialState())
@@ -31,8 +30,18 @@ class CreationViewModel @Inject constructor(
 
     fun onArguments(arguments: CreationInitArguments) {
         when (arguments) {
-            is CreationInitArguments.Create -> Unit
+            is CreationInitArguments.Create -> loadPeace()
             is CreationInitArguments.Edit -> fillItemData(itemId = arguments.itemId)
+        }
+    }
+
+    private fun loadPeace() {
+        viewModelScope.launch {
+            val items = mutableListOf<String>()
+            kekGarbageRepository.readPeace().bufferedReader().lineSequence().asFlow()
+                .take(10)
+                .toList(items)
+            _state.emit(CreationViewState(title = "", content = "", contentItems = items))
         }
     }
 

@@ -29,11 +29,25 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/creationCreateButton"
+        app:layout_constraintBottom_toTopOf="@id/optimizedContent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/creationItemNameEditText"
+        app:layout_constraintVertical_chainStyle="spread"
         tools:text="lol kek cheburek" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/optimizedContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/creationCreateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/creationItemContentEditText"
+        tools:listitem="@layout/item_content_part" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/creationCreateButton"

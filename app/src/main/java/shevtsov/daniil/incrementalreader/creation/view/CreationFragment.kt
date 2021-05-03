@@ -14,7 +14,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.xwray.groupie.GroupieAdapter
 import kotlinx.android.synthetic.main.fragment_creation.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -33,6 +36,8 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
     private val binding by viewLifecycleLazy { bind(requireView()) }
 
     private val args: CreationFragmentArgs by navArgs()
+
+    private val adapter = GroupieAdapter()
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -100,6 +105,7 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
         with(state) {
             creationItemNameEditText.setText(title)
             creationItemContentEditText.setText(content)
+            adapter.update(state.contentItems.mapIndexed {id, value -> ContentGroupieItem(id.toLong(), value) })
         }
     }
 
@@ -128,6 +134,9 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
     }
 
     private fun FragmentCreationBinding.initViews() {
+        optimizedContent.adapter = adapter
+        optimizedContent.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+
         creationItemNameEditText.setListeners(
             textEnteredAction = viewModel::onNameEntered,
         )
