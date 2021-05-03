@@ -1,6 +1,6 @@
 package shevtsov.daniil.incrementalreader.storage.data
 
-import shevtsov.daniil.incrementalreader.core.storage.room.InformationItemEntity
+import shevtsov.daniil.incrementalreader.core.storage.room.information.InformationItemEntity
 import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 import javax.inject.Inject
 

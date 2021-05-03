@@ -26,4 +26,10 @@ class DatabaseModule {
         database: InformationItemDatabase
     ) = database.informationItemDao
 
+    @Provides
+    @AppScope
+    fun provideRepetitionDao(
+        database: InformationItemDatabase
+    ) = database.repetitionDao
+
 }

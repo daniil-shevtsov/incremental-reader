@@ -80,7 +80,9 @@ class LearningViewModel @Inject constructor(
         val score = scoreList.find { it.id == scoreId }
 
         if (item != null && score != null) {
-            addRepetition(item = item, score = score)
+            viewModelScope.launch {
+                addRepetition(item = item, score = score)
+            }
         }
 
     }

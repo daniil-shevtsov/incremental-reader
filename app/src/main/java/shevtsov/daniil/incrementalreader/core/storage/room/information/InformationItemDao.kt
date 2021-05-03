@@ -1,4 +1,4 @@
-package shevtsov.daniil.incrementalreader.core.storage.room
+package shevtsov.daniil.incrementalreader.core.storage.room.information
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
