@@ -3,11 +3,7 @@ package shevtsov.daniil.incrementalreader.creation.view
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.ActionMode
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -67,45 +63,20 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
 
         viewModel.onArguments(arguments = args.initArguments)
 
-        binding.creationItemContentEditText.apply {
-            customSelectionActionModeCallback =
-                object : ActionMode.Callback {
-                    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                        requireActivity().menuInflater.inflate(R.menu.creation_share_menu, menu)
-                        return true
-                    }
-
-                    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                        return false
-                    }
-
-                    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-                        return when (item?.itemId) {
-                            R.id.item_create_chunk -> {
-                                viewModel.onCreateChunk(getSelectedText())
-                                true
-                            }
-                            R.id.item_create_cloze -> {
-                                viewModel.onCreateCloze(getSelectedText())
-                                true
-                            }
-                            else -> false
-                        }
-                    }
-
-                    override fun onDestroyActionMode(mode: ActionMode?) {
-
-                    }
-                }
-        }
-
     }
 
     private fun renderState(state: CreationViewState) {
         with(state) {
             creationItemNameEditText.setText(title)
-            creationItemContentEditText.setText(content)
-            adapter.update(state.contentItems.mapIndexed {id, value -> ContentGroupieItem(id.toLong(), value) })
+            adapter.update(state.contentItems.map { (id, value) ->
+                ContentGroupieItem(
+                    contentPartId = id,
+                    contentPart = value,
+                    onTextChanged = { text -> viewModel.onContentEntered(id, text) },
+                    onCreateChunk = { selectedText -> viewModel.onCreateChunk(selectedText) },
+                    onCreateCloze = { selectedText -> viewModel.onCreateCloze(selectedText) }
+                )
+            })
         }
     }
 
@@ -134,33 +105,13 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
     }
 
     private fun FragmentCreationBinding.initViews() {
+        creationItemNameEditText.doAfterTextChanged { viewModel.onNameEntered(it.toString()) }
+
         optimizedContent.adapter = adapter
         optimizedContent.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-
-        creationItemNameEditText.setListeners(
-            textEnteredAction = viewModel::onNameEntered,
-        )
-
-        creationItemContentEditText.setListeners(
-            textEnteredAction = viewModel::onContentEntered,
-        )
 
         creationCreateButton.setOnClickListener { viewModel.onSaveContent() }
     }
 
-    private fun EditText.setListeners(
-        textEnteredAction: (text: String) -> Unit
-    ) {
-        doAfterTextChanged { editable ->
-            textEnteredAction.invoke(editable.toString())
-        }
-    }
-
-    private fun EditText.getSelectedText(): String {
-        val startSelection = selectionStart
-        val endSelection = selectionEnd
-
-        return text.toString().substring(startSelection, endSelection)
-    }
 
 }

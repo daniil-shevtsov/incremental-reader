@@ -24,14 +24,28 @@ class CreationViewModel @Inject constructor(
     val events = _events.asSharedFlow()
 
     private var currentName: String = ""
-    private var currentText: String = ""
+    private var currentText = mutableMapOf<Long, String>()
 
     private var currentId: Long? = null
 
     fun onArguments(arguments: CreationInitArguments) {
         when (arguments) {
-            is CreationInitArguments.Create -> loadPeace()
+            is CreationInitArguments.Create -> loadEmpty()
+            is CreationInitArguments.LoadPeace -> loadPeace()
             is CreationInitArguments.Edit -> fillItemData(itemId = arguments.itemId)
+        }
+    }
+
+    private fun loadEmpty() {
+        viewModelScope.launch {
+            val items = (0..10).toList().map { it.toLong() to "" }
+            _state.emit(
+
+                CreationViewState(
+                    title = "",
+                    contentItems = items
+                )
+            )
         }
     }
 
@@ -39,9 +53,14 @@ class CreationViewModel @Inject constructor(
         viewModelScope.launch {
             val items = mutableListOf<String>()
             kekGarbageRepository.readPeace().bufferedReader().lineSequence().asFlow()
-                .take(10)
                 .toList(items)
-            _state.emit(CreationViewState(title = "", content = "", contentItems = items))
+            _state.emit(
+                CreationViewState(
+                    title = "",
+                    contentItems = items.mapIndexed { id, value -> id.toLong() to value }
+                )
+            )
+
         }
     }
 
@@ -49,16 +68,16 @@ class CreationViewModel @Inject constructor(
         currentName = text
     }
 
-    fun onContentEntered(text: String) {
-        currentText = text
+    fun onContentEntered(id: Long, text: String) {
+        currentText[id] = text
     }
 
     fun onSaveContent() {
         viewModelScope.launch {
             saveContent(
                 id = currentId,
-                name = currentName,
-                content = currentText,
+                name = formTextName(),
+                content = formText(),
             )
             _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
         }
@@ -71,22 +90,27 @@ class CreationViewModel @Inject constructor(
             val item = getSavedItem(itemId)
             if (item != null) {
                 currentName = item.title
-                currentText = item.content
-                _state.emit(CreationViewState(title = item.title, content = item.content))
+                currentText = item.content.split('\n')
+                    .mapIndexed { index, line -> index.toLong() to line }
+                    .toMap()
+                    .toMutableMap()
+                _state.emit(CreationViewState(title = item.title, contentItems = currentText.toList()))
+//                currentName = item.title
+//                currentText = item.content
+//                _state.emit(CreationViewState(title = item.title))
             }
         }
     }
 
     private fun createInitialState() = CreationViewState(
         title = "",
-        content = "",
     )
 
     fun onCreateChunk(selectedText: String) {
         viewModelScope.launch {
             saveContent(
                 id = null,
-                name = "$currentName: ${selectedText.substringBefore(" ")}",
+                name = formChunkName(selectedText),
                 content = selectedText,
                 parentId = currentId
             )
@@ -98,8 +122,8 @@ class CreationViewModel @Inject constructor(
         viewModelScope.launch {
             saveContent(
                 id = null,
-                name = currentText.replaceFirst(selectedText, "_".repeat(selectedText.length)),
-                content = currentText,
+                name = formClozeName(selectedText),
+                content = formText(),
                 parentId = currentId
             )
             _events.emit(CreationScreenEvent.ShowClozeCreated)
@@ -113,6 +137,22 @@ class CreationViewModel @Inject constructor(
         parentId: Long? = null
     ) {
         saveOrUpdateItem(id = id, name = name, content = content, parentId = parentId)
+    }
+
+    private fun formTextName(): String {
+        return currentName
+    }
+
+    private fun formChunkName(selectedText: String): String {
+        return "$currentName: ${selectedText.substringBefore(" ")}"
+    }
+
+    private fun formClozeName(selectedText: String): String {
+        return formText().replaceFirst(selectedText, "_".repeat(selectedText.length))
+    }
+
+    private fun formText(): String {
+        return currentText.map { it.value }.joinToString("\n")
     }
 
 }

@@ -46,6 +46,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.initViews()
 
         if (BuildConfig.DEBUG) {
+            binding.loadPeaceButton.isVisible = true
             binding.showDatabaseButton.apply {
                 isVisible = true
                 setOnClickListener {
@@ -61,6 +62,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun FragmentMainBinding.initViews() {
+        loadPeaceButton.setOnClickListener { viewModel.onLoadPeace() }
         openCreationButton.setOnClickListener { viewModel.onOpenCreation() }
         openLearningButton.setOnClickListener { viewModel.onOpenLearning() }
         openStructureButton.setOnClickListener { viewModel.onOpenStructure() }
@@ -68,15 +70,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun handleEvent(event: MainScreenEvent) {
         when (event) {
-            is MainScreenEvent.OpenCreation -> openCreation()
+            is MainScreenEvent.OpenCreation -> openCreation(arguments = CreationInitArguments.Create)
+            is MainScreenEvent.LoadPeace -> openCreation(arguments = CreationInitArguments.LoadPeace)
             is MainScreenEvent.OpenLearning -> openLearning()
             is MainScreenEvent.OpenStructure -> openStructure()
         }
     }
 
-    private fun openCreation() {
+    private fun openCreation(arguments: CreationInitArguments) {
         val direction =
-            MainFragmentDirections.mainToCreation(initArguments = CreationInitArguments.Create)
+            MainFragmentDirections.mainToCreation(initArguments = arguments)
         findNavController().navigate(direction)
     }
 
