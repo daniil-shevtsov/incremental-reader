@@ -32,8 +32,10 @@ fun DependencyHandlerScope.coroutines() {
 fun DependencyHandlerScope.unitTestDependencies() {
     testImplementation("androidx.arch.core:core-testing:${Version.CORE_TESTING}")
 
+
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.JUPITER}")
 
+    testImplementation ("org.junit.jupiter:junit-jupiter:${Version.JUPITER}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.JUPITER}")
     testImplementation("org.junit.jupiter:junit-jupiter-params:${Version.JUPITER}")
     testImplementation("io.mockk:mockk:${Version.MOCKK}")

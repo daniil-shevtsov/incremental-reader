@@ -54,13 +54,16 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    viewBinding.isEnabled = true
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(kotlin("stdlib-jdk7", "1.4.31"))
+    implementation(kotlin("stdlib-jdk7", "1.5.0"))
 
     appDependencies()
 

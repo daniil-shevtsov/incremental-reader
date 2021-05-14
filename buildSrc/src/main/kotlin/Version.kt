@@ -7,7 +7,7 @@ object Version {
     const val LIFECYCLE = "2.2.0"
     const val NAVIGATION = "2.3.2"
 
-    const val COROUTINES = "1.4.3"
+    const val COROUTINES = "1.5.0-RC"
 
     const val TURBINE = "0.4.1"
 
@@ -26,7 +26,7 @@ object Version {
 
     const val DAGGER = "2.23.1"
 
-    const val ROOM = "2.2.5"
+    const val ROOM = "2.3.0"
 
     const val CORE_TESTING = "2.0.1"
 
