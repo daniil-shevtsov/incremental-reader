@@ -1,7 +1,4 @@
 object Plugin {
-    object Version {
-        const val DEPENDENCY_UPDATE_DETECTION = "1.0.199"
-    }
 
     const val ANDROID_APP = "com.android.application"
 

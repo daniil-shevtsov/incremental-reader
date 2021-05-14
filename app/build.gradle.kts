@@ -9,7 +9,7 @@ plugins {
 
     id(Plugin.SAFE_ARGS)
 
-    id(Plugin.DEPENDENCY_UPDATE_DETECTION) version Plugin.Version.DEPENDENCY_UPDATE_DETECTION
+    id(Plugin.DEPENDENCY_UPDATE_DETECTION) version Version.DEPENDENCY_UPDATE_DETECTION
 }
 
 android {
