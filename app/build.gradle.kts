@@ -1,11 +1,12 @@
 plugins {
     id(Plugin.ANDROID_APP)
 
+
     with(Plugin.Kotlin) {
         kotlin(ANDROID)
-        kotlin(EXTENSIONS)
         kotlin(KAPT)
     }
+    id("kotlin-parcelize")
 
     id(Plugin.SAFE_ARGS)
 

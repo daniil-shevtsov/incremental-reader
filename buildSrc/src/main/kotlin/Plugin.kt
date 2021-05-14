@@ -4,6 +4,7 @@ object Plugin {
 
     object Kotlin {
         const val ANDROID = "android"
+        const val PARCELIZE = "kotlin-parcelize"
         const val EXTENSIONS = "android.extensions"
         const val KAPT = "kapt"
     }

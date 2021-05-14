@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupieAdapter
-import kotlinx.android.synthetic.main.fragment_creation.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.R
@@ -67,7 +66,7 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
 
     private fun renderState(state: CreationViewState) {
         with(state) {
-            creationItemNameEditText.setText(title)
+            binding.creationItemNameEditText.setText(title)
             adapter.update(state.contentItems.map { (id, value) ->
                 ContentGroupieItem(
                     contentPartId = id,
