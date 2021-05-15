@@ -62,6 +62,7 @@ android {
 }
 
 
+
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(kotlin("stdlib-jdk7", "1.5.0"))
@@ -71,4 +72,8 @@ dependencies {
     unitTestDependencies()
 
     instrumentationTestDependencies()
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

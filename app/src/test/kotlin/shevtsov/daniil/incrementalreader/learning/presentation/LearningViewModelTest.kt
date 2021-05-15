@@ -9,14 +9,17 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.extension.ExtendWith
 import shevtsov.daniil.incrementalreader.learning.domain.AddRepetitionUseCase
 import shevtsov.daniil.incrementalreader.learning.domain.GetScoreListUseCase
 import shevtsov.daniil.incrementalreader.learning.navigation.LearningInitArguments
 import shevtsov.daniil.incrementalreader.learning.usecase.GetCalculatedItemUseCase
+import shevtsov.daniil.incrementalreader.rule.TestCoroutineExtension
 import shevtsov.daniil.incrementalreader.storage.domain.GetSavedItemUseCase
 import shevtsov.daniil.incrementalreader.storage.domain.model.InformationItem
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(TestCoroutineExtension::class)
 class LearningViewModelTest {
 
     private lateinit var viewModel: LearningViewModel
@@ -28,6 +31,8 @@ class LearningViewModelTest {
 
     @BeforeEach
     fun onSetup() {
+        every { getScoreListUseCase.invoke() } returns emptyList()
+
         viewModel = LearningViewModel(
             getScoreList = getScoreListUseCase,
             getCalculatedItem = getCalculatedItemUseCase,
