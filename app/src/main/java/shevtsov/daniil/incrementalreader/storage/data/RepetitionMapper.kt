@@ -1,6 +1,7 @@
 package shevtsov.daniil.incrementalreader.storage.data
 
 import shevtsov.daniil.incrementalreader.core.storage.room.repetition.RepetitionEntity
+import shevtsov.daniil.incrementalreader.learning.domain.ScoreValue
 import shevtsov.daniil.incrementalreader.storage.domain.model.Repetition
 import javax.inject.Inject
 
@@ -13,7 +14,7 @@ class RepetitionMapper @Inject constructor() {
             repetitionId = repetitionId ?: 0L,
             informationItemId = informationItemId,
             repetitionTime = repetitionTime,
-            score = score,
+            score = score.value,
         )
     }
 
@@ -24,7 +25,7 @@ class RepetitionMapper @Inject constructor() {
             repetitionId = repetitionId,
             informationItemId = informationItemId,
             repetitionTime = repetitionTime,
-            score = score,
+            score = ScoreValue(score),
         )
     }
 

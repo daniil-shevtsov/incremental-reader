@@ -36,6 +36,25 @@ class CreationViewModel @Inject constructor(
         }
     }
 
+    fun onNameEntered(text: String) {
+        currentName = text
+    }
+
+    fun onContentEntered(id: Long, text: String) {
+        currentText[id] = text
+    }
+
+    fun onSaveContent() {
+        viewModelScope.launch {
+            saveContent(
+                id = currentId,
+                name = formTextName(),
+                content = formText(),
+            )
+            _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
+        }
+    }
+
     private fun loadEmpty() {
         viewModelScope.launch {
             val items = (0..10).toList().map { it.toLong() to "" }
@@ -61,25 +80,6 @@ class CreationViewModel @Inject constructor(
                 )
             )
 
-        }
-    }
-
-    fun onNameEntered(text: String) {
-        currentName = text
-    }
-
-    fun onContentEntered(id: Long, text: String) {
-        currentText[id] = text
-    }
-
-    fun onSaveContent() {
-        viewModelScope.launch {
-            saveContent(
-                id = currentId,
-                name = formTextName(),
-                content = formText(),
-            )
-            _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
         }
     }
 

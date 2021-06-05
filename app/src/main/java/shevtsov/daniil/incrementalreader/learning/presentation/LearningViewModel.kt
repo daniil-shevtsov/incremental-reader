@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.core.util.toImmutable
 import shevtsov.daniil.incrementalreader.learning.domain.AddRepetitionUseCase
@@ -60,7 +59,8 @@ class LearningViewModel @Inject constructor(
 
     private fun handleEmpty() {
         viewModelScope.launch {
-            getCalculatedItem.invoke().collect { item ->
+            val item = getCalculatedItem.invoke()
+            if(item != null) {
                 selectedItem = item
                 showQuestion(item)
             }

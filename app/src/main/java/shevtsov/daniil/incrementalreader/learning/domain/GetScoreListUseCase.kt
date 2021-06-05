@@ -10,7 +10,7 @@ class GetScoreListUseCase @Inject constructor(
         .map {
             Score(
                 id = it.toLong(),
-                value = it.toLong()
+                value = ScoreValue(it.toLong())
             )
         }
 

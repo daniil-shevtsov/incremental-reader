@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class StructureFragment {
+    + renderState(StructureViewState state)
+}
+
+class StructureViewState {
+   List<StructureInformationItem> : items
+}
+
+class StructureInformationItem {
+    Long : id
+    String : title
+}
+
+enum StructureViewAction {
+    OpenEdit,
+    OpenLearning
+}
+
+class StructureViewModel {
+    + onAction(StructureViewAction action)
+}
+
+StructureFragment -> StructureViewModel
+StructureFragment <- StructureViewModel
+
+StructureViewState -up[hidden]-> StructureViewModel
+StructureViewAction -up[hidden]-> StructureFragment
+
+StructureViewState -down[hidden]-> StructureInformationItem
+
+@enduml

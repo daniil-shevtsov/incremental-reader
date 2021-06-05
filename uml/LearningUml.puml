@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class LearningFragment {
+    + renderState(LearningViewState state)
+}
+
+enum LearningViewState {
+    QuestionOnly,
+    AnswerShown
+}
+
+enum LearningViewAction {
+    ProvideArguments,
+    ShowAnswer,
+    SelectScore
+}
+
+class LearningViewModel {
+    + onAction(LearningViewAction action)
+}
+
+LearningFragment -> LearningViewModel
+LearningFragment <- LearningViewModel
+
+LearningViewAction -up[hidden]-> LearningFragment
+LearningViewState -up[hidden]-> LearningViewModel
+
+@enduml

@@ -1,10 +1,10 @@
 package shevtsov.daniil.incrementalreader.learning.presentation
 
 import app.cash.turbine.test
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -52,7 +52,7 @@ class LearningViewModelTest {
             lastReviewTime = 0L,
             parentId = null,
         )
-        every { getCalculatedItemUseCase.invoke() } answers { flowOf(calculatedItem) }
+        coEvery { getCalculatedItemUseCase.invoke() } answers { calculatedItem }
 
         viewModel.onAction(
             LearningViewAction.ProvideArguments(LearningInitArguments.Empty)

@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class CreationFragment {
+    + renderState(CreationViewState state)
+    + handleEvent(CreationViewEvent event)
+}
+
+class CreationViewState {
+   String title
+   String content
+}
+
+enum CreationViewAction {
+    NameEntered,
+    ContentEntered,
+    SaveContent
+}
+
+enum CreationInitArguments {
+    Create,
+    Edit
+}
+
+enum CreationScreenEvent {
+    ShowItemSaved,
+    ShowChunkCreated,
+    ShowClozeCreated
+}
+
+class CreationViewModel {
+    + onArguments(CreationInitArguments arguments)
+    + onAction(CreationViewAction action)
+}
+
+CreationFragment -> CreationViewModel
+CreationFragment <- CreationViewModel
+
+CreationViewAction -up[hidden]-> CreationFragment
+CreationViewState -up[hidden]-> CreationViewModel
+
+CreationViewAction -[hidden]> CreationInitArguments
+CreationScreenEvent -[hidden]> CreationViewAction
+
+@enduml
