@@ -17,7 +17,6 @@ class CalculateDaysUntilRepetitionUseCase @Inject constructor() {
     }
 
 
-
     private companion object {
         object SpacedRepetition {
             val a = 6.0
@@ -38,20 +37,46 @@ fun <T> List<List<T>>.findLastGroup(predicate: (value: T) -> Boolean) =
 fun <T> List<T>.formGroups(
     predicate: (value: T) -> Boolean
 ): List<List<T>> {
+    if (isEmpty()) {
+        return emptyList()
+    }
+
     val groups = mutableListOf<MutableList<T>>()
-    forEach { value ->
-        val lastGroup = groups.findLastGroup(predicate) as MutableList<T>?
+    groups.add(mutableListOf(first()))
 
-        val lastValue = lastGroup?.lastOrNull(predicate)
+    var lastGroup: MutableList<T> = groups.first()
+    var lastValue: T = lastGroup.first()
 
-        if (predicate.invoke(value)) {
-            if (lastValue != null && predicate.invoke(lastValue)) {
-                lastGroup?.add(value)
-            } else {
-                groups.add(mutableListOf(value))
-            }
-
+    drop(1).forEach { value ->
+        if(predicate.invoke(lastValue) == predicate.invoke(value)) {
+            lastGroup.add(value)
+        } else {
+            groups.add(mutableListOf(value))
+            lastGroup = groups.last()
         }
+        lastValue = value
+//        val lastGroup = groups.findLastGroup(predicate) as MutableList<T>?
+//
+//        val lastValue = lastGroup?.lastOrNull(predicate)
+
+//        val valueValid = predicate.invoke(value)
+//        val lastValueValid = lastValue?.let { predicate.invoke(value) }
+//
+//        if (lastValueValid == null) {
+//            groups.add(mutableListOf(value))
+//        } else if (valueValid == lastValueValid) {
+//            lastGroup?.add(value)
+//        } else {
+//            groups.add(mutableListOf(value))
+//        }
+
+//        if (predicate.invoke(value)) {
+//            if (lastValue != null && predicate.invoke(lastValue)) {
+//                lastGroup?.add(value)
+//            } else {
+//                groups.add(mutableListOf(value))
+//            }
+//        }
     }
     return groups
 }

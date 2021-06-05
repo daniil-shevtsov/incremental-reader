@@ -65,15 +65,15 @@ internal class CalculateDaysUntilRepetitionUseCaseTest {
             mutableListOf(1, 2, 3),
         )
 
-        val group = groups.findLastGroup { it < 0}
+        val group = groups.findLastGroup { it < 0 }
 
         assertEquals(expectedGroup, group)
     }
 
     @Test
     fun `when forming groups - correct groups are formed`() {
-        val originalList = listOf(1,2,3,0,4,5,6)
-        val expectedGroups = listOf(listOf(1,2,3),listOf(4,5,6))
+        val originalList = listOf(1, 2, 3, 0, 4, 5, 6)
+        val expectedGroups = listOf(listOf(1, 2, 3), listOf(0), listOf(4, 5, 6))
 
         val groups = originalList.formGroups { it != 0 }
 
