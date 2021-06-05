@@ -70,6 +70,16 @@ internal class CalculateDaysUntilRepetitionUseCaseTest {
         assertEquals(expectedGroup, group)
     }
 
+    @Test
+    fun `when forming groups - correct groups are formed`() {
+        val originalList = listOf(1,2,3,0,4,5,6)
+        val expectedGroups = listOf(listOf(1,2,3),listOf(4,5,6))
+
+        val groups = originalList.formGroups { it != 0 }
+
+        assertEquals(expectedGroups, groups)
+    }
+
     private fun List<Int>.toScores() = map { ScoreValue(it.toLong()) }
 
     private companion object {
