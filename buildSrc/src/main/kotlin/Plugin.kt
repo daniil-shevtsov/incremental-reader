@@ -9,6 +9,8 @@ object Plugin {
         const val KAPT = "kapt"
     }
 
+    const val JACOCO = "jacoco"
+
     const val DEPENDENCY_UPDATE_DETECTION = "name.remal.check-dependency-updates"
     const val SAFE_ARGS = "androidx.navigation.safeargs.kotlin"
 

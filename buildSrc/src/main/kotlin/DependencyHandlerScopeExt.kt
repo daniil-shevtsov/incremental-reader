@@ -29,6 +29,10 @@ fun DependencyHandlerScope.coroutines() {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.COROUTINES}")
 }
 
+fun DependencyHandlerScope.coverage() {
+
+}
+
 fun DependencyHandlerScope.unitTestDependencies() {
     testImplementation("androidx.arch.core:core-testing:${Version.CORE_TESTING}")
 
@@ -100,7 +104,7 @@ fun DependencyHandlerScope.database() {
 }
 
 fun DependencyHandlerScope.misc() {
-    debugImplementation("com.wajahatkarim3:roomexplorer:0.0.2")
+    implementation("com.wajahatkarim3:roomexplorer:0.0.2")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY}")
 }
 

@@ -63,4 +63,9 @@ class LearningViewModelTest {
         }
 
     }
+
+    @Test
+    fun `some test`() {
+        assertEquals(2, 2)
+    }
 }

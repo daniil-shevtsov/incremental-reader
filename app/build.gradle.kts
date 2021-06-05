@@ -7,8 +7,11 @@ plugins {
         kotlin(KAPT)
     }
     id("kotlin-parcelize")
-
+    id("com.vanniktech.android.junit.jacoco") version "0.16.0"
+    id ("com.xcporter.metaview") version "0.0.5"
     id(Plugin.SAFE_ARGS)
+//    id(Plugin.JACOCO)
+//    id("mergedJacocoReport")
 
     id(Plugin.DEPENDENCY_UPDATE_DETECTION) version Version.DEPENDENCY_UPDATE_DETECTION
 }
@@ -33,7 +36,7 @@ android {
 
     buildTypes {
         getByName("debug") {
-
+            isTestCoverageEnabled = true
         }
 
         getByName("release") {
@@ -57,6 +60,10 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+
+    generateUml {
+        classTree {}
     }
 
 }
