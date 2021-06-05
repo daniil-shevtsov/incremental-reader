@@ -12,6 +12,7 @@ class CalculateDaysUntilRepetitionUseCase @Inject constructor() {
 
     fun findAnswerStreak(scores: List<ScoreValue>): Int {
         return scores.formGroups { score -> score.value >= MinimumCorrect }
+            .filter { group -> group.all { score -> score.value >= MinimumCorrect } }
             .maxByOrNull { group -> group.count() }
             ?.count() ?: 0
     }
@@ -48,7 +49,7 @@ fun <T> List<T>.formGroups(
     var lastValue: T = lastGroup.first()
 
     drop(1).forEach { value ->
-        if(predicate.invoke(lastValue) == predicate.invoke(value)) {
+        if (predicate.invoke(lastValue) == predicate.invoke(value)) {
             lastGroup.add(value)
         } else {
             groups.add(mutableListOf(value))
