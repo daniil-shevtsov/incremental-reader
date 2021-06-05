@@ -44,21 +44,26 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+
+        freeCompilerArgs += [
+                "-Xuse-experimental=kotlin.ExperimentalStdlibApi",
+                "-Xuse-experimental=kotlin.time.ExperimentalTime"
+        ]
     }
 
     buildFeatures {
         viewBinding true
     }
 
-//    generateUml {
-//        classTree {}
-//    }
-//
-//    testOptions {
-//        unitTests.all {
-//            useJUnitPlatform()
-//        }
-//    }
+    generateUml {
+        classTree {}
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 
 }
 
