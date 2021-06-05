@@ -2,12 +2,21 @@ package shevtsov.daniil.incrementalreader.learning.usecase
 
 import shevtsov.daniil.incrementalreader.learning.domain.ScoreValue
 import javax.inject.Inject
+import kotlin.math.max
+import kotlin.math.pow
 
 class CalculateDaysUntilRepetitionUseCase @Inject constructor() {
 
     operator fun invoke(scores: List<ScoreValue>): Double {
         val correctAnswerStreak = findAnswerStreak(scores)
-        return 0.0
+
+
+        return with(SpacedRepetition) {
+            (max(minScore, assumedScore + scores.sumOf { score ->
+
+                b + c * score.value + d * score.value * score.value
+            }).pow(theta * correctAnswerStreak)) * a
+        }
     }
 
     fun findAnswerStreak(scores: List<ScoreValue>): Int {
@@ -20,11 +29,14 @@ class CalculateDaysUntilRepetitionUseCase @Inject constructor() {
 
     private companion object {
         object SpacedRepetition {
+            val minScore = 1.3
+            val assumedScore = 2.5
+
             val a = 6.0
             val b = -0.8
             val c = 0.28
             val d = 0.02
-            val omega = 0.2
+            val theta = 0.2
         }
 
         val MinimumCorrect = 3

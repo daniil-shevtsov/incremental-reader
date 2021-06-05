@@ -18,6 +18,26 @@ internal class CalculateDaysUntilRepetitionUseCaseTest {
 
     @Test
     fun testOneRepetition() {
+        val testData = listOf(3).toScores()
+        val expectedDays = 7.3293
+
+        val days = usecase.invoke(scores = testData)
+
+        assertEquals(expectedDays, days, DELTA)
+    }
+
+    @Test
+    fun testSeveralRepetitions() {
+        val testData = listOf(0,1,2,3).toScores()
+        val expectedDays = 6.3232
+
+        val days = usecase.invoke(scores = testData)
+
+        assertEquals(expectedDays, days, DELTA)
+    }
+
+    @Test
+    fun testManyRepetitions() {
         val testData = listOf(2, 1, 3, 3, 4, 1, 2, 3, 4).toScores()
         val expectedDays = 9.4583
 
