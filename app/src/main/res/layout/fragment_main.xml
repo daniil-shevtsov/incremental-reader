@@ -13,12 +13,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:visibility="gone"
         android:backgroundTint="#FFFF00"
         android:text="@string/main_fragment_show_database_button_title"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/load_peace_button"
+        style="@style/CommonButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#FFFF00"
+        android:text="@string/main_fragment_load_peace_button_title"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/show_database_button" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/open_structure_button"
@@ -31,7 +46,7 @@
         android:text="@string/main_fragment_structure_button_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/show_database_button" />
+        app:layout_constraintTop_toBottomOf="@id/load_peace_button" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/open_creation_button"

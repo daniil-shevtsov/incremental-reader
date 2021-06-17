@@ -6,9 +6,14 @@
     <string name="main_fragment_creation_button_title">Creation</string>
     <string name="main_fragment_learning_button_title">Learning</string>
     <string name="main_fragment_show_database_button_title">Show Database</string>
+    <string name="main_fragment_load_peace_button_title">Load Peace</string>
 
     <string name="creation_screen_create_button_title">Create</string>
     <string name="creation_screen_title">Creation</string>
+
     <string name="item_created_message">Item %s saved</string>
+    <string name="chunk_created_message">Chunk created</string>
+    <string name="cloze_created_message">Cloze created</string>
+
 
 </resources>

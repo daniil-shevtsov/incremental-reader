@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class InformationItemDao {
+    + getAllEntities(): Flow<List<InformationItemEntity>>
+    + insert(entity: InformationItemEntity): Long
+    + update(entity: InformationItemEntity)
+    + getItem(id: Long): InformationItemEntity
+}
+
+class RepetitionDao {
+    + getAllEntities(): Flow<List<RepetitionEntity>>
+    + insert(entity: RepetitionEntity): Long
+}
+
+
+@enduml

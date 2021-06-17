@@ -14,6 +14,12 @@ class MainViewModel @Inject constructor(
     private val _events = MutableSharedFlow<MainScreenEvent>()
     val events = _events.toImmutable()
 
+    fun onLoadPeace() {
+        viewModelScope.launch {
+            _events.emit(MainScreenEvent.LoadPeace)
+        }
+    }
+
     fun onOpenCreation() {
         viewModelScope.launch {
             _events.emit(MainScreenEvent.OpenCreation)

@@ -2,19 +2,20 @@ package shevtsov.daniil.incrementalreader.creation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.ActionMode
-import android.view.Menu
-import android.view.MenuItem
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
+import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_creation.*
+import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import shevtsov.daniil.incrementalreader.R
@@ -33,10 +34,21 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
 
     private val args: CreationFragmentArgs by navArgs()
 
+    private val adapter = GroupieAdapter()
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel: CreationViewModel by viewModels { viewModelFactory }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d("KEK","on create view")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -50,85 +62,69 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
         binding.initViews()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state -> renderState(state) }
+            Log.d("KEK", "observe state")
+            viewModel.state.collect { state ->
+                Log.d("KEK", "got state: ${state.contentItems.firstOrNull()?.second}")
+                renderState(state)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            Log.d("KEK", "observe events")
             viewModel.events.collect { event -> handleEvent(event) }
         }
 
         viewModel.onArguments(arguments = args.initArguments)
 
-        binding.creationItemContentEditText.apply {
-            customSelectionActionModeCallback =
-                object : ActionMode.Callback {
-                    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                        requireActivity().menuInflater.inflate(R.menu.creation_share_menu, menu)
-                        return true
-                    }
-
-                    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                        return false
-                    }
-
-                    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-                        return when (item?.itemId) {
-                            R.id.item_create_chunk -> {
-                                viewModel.onCreateChunk(getSelectedText())
-                                true
-                            }
-                            else -> false
-                        }
-                    }
-
-                    override fun onDestroyActionMode(mode: ActionMode?) {
-
-                    }
-                }
-        }
-
     }
 
     private fun renderState(state: CreationViewState) {
         with(state) {
-            creationItemNameEditText.setText(title)
-            creationItemContentEditText.setText(content)
+            binding.creationItemNameEditText.setText(title)
+            adapter.update(state.contentItems.map { (id, value) ->
+                ContentGroupieItem(
+                    contentPartId = id,
+                    contentPart = value,
+                    onTextChanged = { text -> viewModel.onContentEntered(id, text) },
+                    onCreateChunk = { selectedText -> viewModel.onCreateChunk(selectedText) },
+                    onCreateCloze = { selectedText -> viewModel.onCreateCloze(selectedText) }
+                )
+            })
         }
     }
 
     private fun handleEvent(event: CreationScreenEvent) {
         when (event) {
             is CreationScreenEvent.ShowItemSaved -> showItemSavedToast(itemName = event.itemName)
+            is CreationScreenEvent.ShowChunkCreated -> showChunkCreatedToast()
+            is CreationScreenEvent.ShowClozeCreated -> showClozeCreatedToast()
         }
     }
 
     private fun showItemSavedToast(itemName: String) {
+        Log.d("KEK", "show message that $itemName created")
         val message = getString(R.string.item_created_message, itemName)
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun FragmentCreationBinding.initViews() {
-        creationItemNameEditText.setListeners(
-            textEnteredAction = viewModel::onNameEntered,
-        )
+    private fun showChunkCreatedToast() {
+        val message = getString(R.string.chunk_created_message)
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+    }
 
-        creationItemContentEditText.setListeners(
-            textEnteredAction = viewModel::onContentEntered,
-        )
+    private fun showClozeCreatedToast() {
+        val message = getString(R.string.cloze_created_message)
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun FragmentCreationBinding.initViews() {
+        creationItemNameEditText.doAfterTextChanged { viewModel.onNameEntered(it.toString()) }
+
+        optimizedContent.adapter = adapter
+        optimizedContent.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         creationCreateButton.setOnClickListener { viewModel.onSaveContent() }
     }
 
-    private fun EditText.setListeners(
-        textEnteredAction: (text: String) -> Unit
-    ) {
-        doAfterTextChanged { editable ->
-            textEnteredAction.invoke(editable.toString())
-        }
-    }
-
-    private fun EditText.getSelectedText(): String {
-        val startSelection = selectionStart
-        val endSelection = selectionEnd
-
-        return text.toString().substring(startSelection, endSelection)
-    }
 
 }

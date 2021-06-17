@@ -9,6 +9,9 @@ sealed class CreationInitArguments : Parcelable {
     object Create : CreationInitArguments()
 
     @Parcelize
+    object LoadPeace : CreationInitArguments()
+
+    @Parcelize
     data class Edit(val itemId: Long) : CreationInitArguments()
 
 }
