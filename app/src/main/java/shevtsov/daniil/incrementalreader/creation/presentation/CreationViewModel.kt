@@ -1,5 +1,6 @@
 package shevtsov.daniil.incrementalreader.creation.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
@@ -46,11 +47,13 @@ class CreationViewModel @Inject constructor(
 
     fun onSaveContent() {
         viewModelScope.launch {
+
             saveContent(
                 id = currentId,
                 name = formTextName(),
                 content = formText(),
             )
+
             _events.emit(CreationScreenEvent.ShowItemSaved(itemName = currentName))
         }
     }
@@ -136,7 +139,20 @@ class CreationViewModel @Inject constructor(
         content: String,
         parentId: Long? = null
     ) {
-        saveOrUpdateItem(id = id, name = name, content = content, parentId = parentId)
+
+
+        viewModelScope.launch {
+            Log.d("KEK", "on save content")
+            val items = mutableListOf<String>()
+            kekGarbageRepository.readPeace().bufferedReader().lineSequence().asFlow()
+                .toList(items)
+
+            saveOrUpdateItem(id = id, name = name, content = items.joinToString(), parentId = parentId)
+            Log.d("KEK", "finished saving content")
+        }
+
+
+
     }
 
     private fun formTextName(): String {

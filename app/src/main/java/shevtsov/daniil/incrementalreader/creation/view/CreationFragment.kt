@@ -3,7 +3,9 @@ package shevtsov.daniil.incrementalreader.creation.view
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,6 +41,15 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
 
     private val viewModel: CreationViewModel by viewModels { viewModelFactory }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d("KEK","on create view")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -52,7 +63,10 @@ class CreationFragment : Fragment(R.layout.fragment_creation) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             Log.d("KEK", "observe state")
-            viewModel.state.collect { state -> renderState(state) }
+            viewModel.state.collect { state ->
+                Log.d("KEK", "got state: ${state.contentItems.firstOrNull()?.second}")
+                renderState(state)
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

@@ -68,28 +68,7 @@ fun <T> List<T>.formGroups(
             lastGroup = groups.last()
         }
         lastValue = value
-//        val lastGroup = groups.findLastGroup(predicate) as MutableList<T>?
-//
-//        val lastValue = lastGroup?.lastOrNull(predicate)
-
-//        val valueValid = predicate.invoke(value)
-//        val lastValueValid = lastValue?.let { predicate.invoke(value) }
-//
-//        if (lastValueValid == null) {
-//            groups.add(mutableListOf(value))
-//        } else if (valueValid == lastValueValid) {
-//            lastGroup?.add(value)
-//        } else {
-//            groups.add(mutableListOf(value))
-//        }
-
-//        if (predicate.invoke(value)) {
-//            if (lastValue != null && predicate.invoke(lastValue)) {
-//                lastGroup?.add(value)
-//            } else {
-//                groups.add(mutableListOf(value))
-//            }
-//        }
     }
+
     return groups
 }
